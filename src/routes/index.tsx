@@ -1,19 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import statueHero from "@/assets/statue-hero.png";
-import statueBust from "@/assets/statue-bust.png";
-import statueAthlete from "@/assets/statue-athlete.png";
-import podium from "@/assets/podium.png";
+import bust from "@/assets/jeremiah/bust.png";
+import logo from "@/assets/jeremiah/logo.png";
+import decor from "@/assets/jeremiah/decor.png";
+import pPadii from "@/assets/jeremiah/p-padii.png";
+import pNetflix from "@/assets/jeremiah/p-netflix.png";
+import pMoniepoint from "@/assets/jeremiah/p-moniepoint.png";
+import pLagrent from "@/assets/jeremiah/p-lagrent.png";
+import pCesado from "@/assets/jeremiah/p-cesado.png";
+import testimonial from "@/assets/jeremiah/testimonial.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Helena Marmaras — UI Designer | Classical Portfolio" },
+      { title: "Balogun Jeremiah — UI/UX Designer | Lagos, Nigeria" },
       {
         name: "description",
         content:
-          "Portfolio of Helena Marmaras, UI designer crafting timeless interfaces inspired by classical proportion and Greek harmony.",
+          "Balogun Jeremiah — UI/UX designer from Lagos, Nigeria. Turning your ideas into realities through thoughtful interfaces and digital products.",
       },
     ],
   }),
@@ -27,7 +32,7 @@ function useReveal<T extends HTMLElement>() {
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => e.isIntersecting && setShown(true),
-      { threshold: 0.15 },
+      { threshold: 0.1 },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -35,299 +40,257 @@ function useReveal<T extends HTMLElement>() {
   return { ref, shown };
 }
 
-function Meander({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 200 20"
-      className={className}
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden
-    >
-      <path
-        d="M0,10 H10 V2 H22 V18 H4 M22,10 H32 V2 H44 V18 H26 M44,10 H54 V2 H66 V18 H48 M66,10 H76 V2 H88 V18 H70 M88,10 H98 V2 H110 V18 H92 M110,10 H120 V2 H132 V18 H114 M132,10 H142 V2 H154 V18 H136 M154,10 H164 V2 H176 V18 H158 M176,10 H186 V2 H198 V18 H180"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        fill="none"
-      />
-    </svg>
-  );
-}
+const projects = [
+  { tag: "Mobile Design", title: "PADII Conversational AI", sub: "Mobile Design · Graphics", img: pPadii, href: "#" },
+  { tag: "Website Design", title: "Netflix AI Movie Creator", sub: "Website Design · Animation", img: pNetflix, href: "#" },
+  { tag: "Mobile Design", title: "Moniepoint Mini Bank", sub: "Moniepoint · Mobile App", img: pMoniepoint, href: "#" },
+  { tag: "Mobile Design", title: "Lagrent {Rent App}", sub: "Website Design · Interaction Design", img: pLagrent, href: "https://www.behance.net/gallery/231280891/LAGOS-HOME-RENT" },
+  { tag: "Website Design", title: "Cesado Art Gallery", sub: "Website Design", img: pCesado, href: "#" },
+];
+
+const skills = [
+  { name: "Framer", desc: "No-code website builder", pct: 90 },
+  { name: "Photoshop", desc: "Visual design & retouching", pct: 93 },
+  { name: "Figma", desc: "Interface & prototyping", pct: 90 },
+  { name: "After Effects", desc: "Motion design", pct: 50 },
+  { name: "Rive", desc: "Interactive animation", pct: 30 },
+  { name: "React", desc: "Front-end development", pct: 90 },
+];
+
+const process = [
+  { n: "01", t: "Discovery", d: "We start with a problem statement and goals. Research users, behaviors, and competitors.", time: "3-5 days" },
+  { n: "02", t: "Define", d: "Define and scope project goals — measurable outcomes like satisfaction and task completion.", time: "2-3 days" },
+  { n: "03", t: "Ideation", d: "Brainstorm and create wireframes outlining structure and navigation.", time: "3-5 days" },
+  { n: "04", t: "Prototyping", d: "Build interactive prototypes that closely resemble the final product.", time: "2-6 days" },
+  { n: "05", t: "Development", d: "Build the product, work with developers, and ship reliable functionality.", time: "3-5 days" },
+];
 
 function Index() {
   const works = useReveal<HTMLDivElement>();
-  const about = useReveal<HTMLDivElement>();
-  const contact = useReveal<HTMLDivElement>();
+  const skillsR = useReveal<HTMLDivElement>();
+  const processR = useReveal<HTMLDivElement>();
+  const testR = useReveal<HTMLDivElement>();
+  const ctaR = useReveal<HTMLDivElement>();
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       {/* NAV */}
-      <header className="fixed top-0 z-50 w-full backdrop-blur-md bg-background/70 border-b border-border">
+      <header className="sticky top-0 z-50 bg-foreground text-background">
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          <a href="#top" className="font-display text-xl tracking-[0.25em] text-foreground">
-            HELENA·M
+          <a href="#top" className="flex items-center gap-2">
+            <img src={logo} alt="" className="w-8 h-8 object-contain" />
+            <span className="font-display text-sm tracking-wide">Balogun Jeremiah</span>
           </a>
-          <ul className="hidden md:flex gap-10 font-display text-xs tracking-[0.3em] text-muted-foreground">
-            <li><a href="#works" className="hover:text-foreground transition-colors">WORKS</a></li>
-            <li><a href="#about" className="hover:text-foreground transition-colors">ATELIER</a></li>
-            <li><a href="#contact" className="hover:text-foreground transition-colors">CONTACT</a></li>
+          <ul className="hidden md:flex gap-10 text-sm text-background/80">
+            <li><a href="#projects" className="hover:text-background transition-colors">Projects</a></li>
+            <li><a href="#about" className="hover:text-background transition-colors">About &amp; Contact</a></li>
           </ul>
-          <a
-            href="#contact"
-            className="font-display text-xs tracking-[0.25em] px-5 py-2 border border-foreground/30 hover:bg-foreground hover:text-background transition-all"
-          >
-            COMMISSION
-          </a>
+          <div className="hidden md:flex items-center gap-4 text-sm">
+            <span className="text-background/70">Email: <span className="text-background">Balogun.jeremiah8@gmail.com</span></span>
+            <a href="mailto:Balogun.jeremiah8@gmail.com" className="px-5 py-2 rounded-full bg-background/10 hover:bg-background/20 transition-colors">Contact Me</a>
+          </div>
+          <a href="mailto:Balogun.jeremiah8@gmail.com" className="md:hidden px-4 py-2 text-xs rounded-full bg-background/10">Contact</a>
         </nav>
       </header>
 
       {/* HERO */}
-      <section id="top" className="relative pt-40 pb-32 px-6">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative">
-          {/* Decorative floating bust */}
-          <img
-            src={statueBust}
-            alt=""
-            aria-hidden
-            className="hidden lg:block absolute -top-10 right-[55%] w-40 opacity-30 animate-float pointer-events-none"
-          />
-
-          <div className="relative z-10">
-            <p className="font-display text-xs tracking-[0.4em] text-muted-foreground mb-6 animate-fade-up">
-              ΜΟΥΣΑ · EST. MMXIX
-            </p>
-            <h1 className="font-display text-6xl md:text-7xl lg:text-8xl leading-[0.95] text-foreground animate-fade-up delay-100">
-              Interfaces
-              <br />
-              of <em className="text-gradient-gold not-italic">Eternal</em>
-              <br />
-              Proportion.
-            </h1>
-            <p className="mt-8 max-w-md text-xl text-muted-foreground leading-relaxed animate-fade-up delay-300">
-              I am Helena Marmaras — a UI designer sculpting digital products
-              with the harmony of classical antiquity and the precision of
-              modern craft.
-            </p>
-            <div className="mt-10 flex gap-4 animate-fade-up delay-500">
-              <a
-                href="#works"
-                className="font-display text-xs tracking-[0.25em] px-7 py-4 bg-foreground text-background hover:bg-accent hover:text-accent-foreground transition-all"
-              >
-                ENTER GALLERY
-              </a>
-              <a
-                href="#about"
-                className="font-display text-xs tracking-[0.25em] px-7 py-4 border border-foreground/40 hover:bg-foreground/5 transition-all"
-              >
-                THE ATELIER
-              </a>
+      <section id="top" className="relative px-6 pt-16 pb-24">
+        <img src={decor} alt="" aria-hidden className="hidden md:block absolute top-10 right-10 w-48 opacity-40 animate-drift pointer-events-none" />
+        <div className="max-w-7xl mx-auto grid md:grid-cols-[auto_1fr] gap-10 items-start">
+          {/* Left column: profile chip + bust */}
+          <div className="flex md:flex-col items-center md:items-start gap-6">
+            <div className="flex items-center gap-3 animate-fade-up">
+              <div className="w-14 h-14 rounded-full bg-foreground/10 flex items-center justify-center font-display text-xl">BJ</div>
+              <div>
+                <p className="font-display text-base">Balogun Jeremiah</p>
+                <p className="text-xs text-muted-foreground">UI/UX Designer</p>
+              </div>
             </div>
-            <Meander className="mt-14 w-64 text-foreground/40 animate-fade-up delay-700" />
+            <div className="relative animate-rise delay-200">
+              <img
+                src={bust}
+                alt="Marble bust statue"
+                className="w-56 md:w-72 animate-float drop-shadow-[0_30px_30px_rgba(60,40,20,0.25)]"
+              />
+            </div>
           </div>
 
-          <div className="relative h-[640px] flex items-end justify-center animate-rise delay-200">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.82_0.13_75/0.25),transparent_70%)]" />
-            <img
-              src={statueHero}
-              alt="Marble statue of a Greek goddess"
-              width={1024}
-              height={1536}
-              className="relative h-full w-auto object-contain animate-float drop-shadow-[0_40px_30px_rgba(60,40,20,0.25)]"
-            />
+          {/* Right column: headline */}
+          <div className="md:pt-4">
+            <div className="inline-flex items-center gap-2 mb-8 px-3 py-1 rounded-full bg-foreground/5 animate-fade-up">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-sm">Available for Freelance</span>
+            </div>
+
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight">
+              <span className="animate-fade-up inline-block">HI! I'm </span>
+              <span className="inline-block px-5 py-1 mx-2 rounded-full bg-secondary border border-border align-middle animate-fade-up delay-100">Jeremiah</span>
+              <br />
+              <span className="animate-fade-up delay-200 inline-block">a </span>
+              <span className="inline-block px-5 py-1 mx-2 rounded-full bg-foreground text-background align-middle animate-fade-up delay-300">UI/UX Designer</span>
+              <br />
+              <span className="animate-fade-up delay-300 inline-block">From </span>
+              <span className="inline-block px-5 py-1 mx-2 rounded-full border border-foreground/30 align-middle animate-fade-up delay-500">
+                <strong>Lagos,</strong> <span className="text-muted-foreground">Nigeria</span>
+              </span>
+              <br />
+              <span className="animate-fade-up delay-500 inline-block">turning your ideas</span>
+              <br />
+              <span className="animate-fade-up delay-700 inline-block">into <em className="text-gradient-gold not-italic">Realities</em></span>
+            </h1>
+
+            <div className="mt-12 grid sm:grid-cols-[auto_1fr_auto] gap-6 items-center">
+              <span className="font-display text-sm text-muted-foreground">(2021 — PRESENT)</span>
+              <p className="text-lg text-muted-foreground max-w-xl">
+                I'm dedicated to crafting websites and digital products that bring your idea to life.
+              </p>
+              <a href="#projects" className="px-6 py-3 rounded-full bg-foreground text-background text-sm hover:bg-accent hover:text-accent-foreground transition-colors whitespace-nowrap">
+                See what I can do →
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* MARQUEE STRIP */}
-      <div className="border-y border-foreground/20 py-5 overflow-hidden bg-foreground/[0.03]">
-        <div className="flex gap-16 whitespace-nowrap animate-[shimmer_30s_linear_infinite]">
-          {Array.from({ length: 2 }).map((_, i) => (
-            <div key={i} className="flex gap-16 font-display text-sm tracking-[0.4em] text-foreground/60">
-              <span>ΑΡΜΟΝΙΑ — HARMONY</span>
-              <span>·</span>
-              <span>ΣΥΜΜΕΤΡΙΑ — SYMMETRY</span>
-              <span>·</span>
-              <span>ΚΑΛΛΟΣ — BEAUTY</span>
-              <span>·</span>
-              <span>ΤΕΧΝΗ — CRAFT</span>
-              <span>·</span>
-              <span>ΣΟΦΙΑ — WISDOM</span>
-              <span>·</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* PROJECTS */}
+      <section id="projects" className="py-24 px-6 bg-foreground/[0.03]">
+        <div ref={works.ref} className={`max-w-7xl mx-auto transition-all duration-1000 ${works.shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <p className="font-display text-sm text-muted-foreground">{"{01}"} — Featured Projects</p>
+          <h2 className="font-display text-4xl md:text-6xl mt-3 max-w-3xl">
+            I blend creativity with <em className="text-gradient-gold not-italic">technical expertise</em>
+          </h2>
 
-      {/* WORKS — PODIUM GALLERY */}
-      <section id="works" className="py-32 px-6">
-        <div
-          ref={works.ref}
-          className={`max-w-7xl mx-auto transition-all duration-1000 ${works.shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        >
-          <div className="text-center mb-20">
-            <p className="font-display text-xs tracking-[0.4em] text-muted-foreground mb-4">
-              ·  CHAPTER  I  ·
-            </p>
-            <h2 className="font-display text-5xl md:text-6xl text-foreground">
-              Selected <em className="text-gradient-gold not-italic">Works</em>
-            </h2>
-            <Meander className="mx-auto mt-6 w-48 text-foreground/40" />
-          </div>
-
-          {/* Podium row */}
-          <div className="grid md:grid-cols-3 gap-8 items-end mb-24">
-            {[
-              { title: "Helios Banking", year: "MMXXIV", role: "Lead UI", h: "h-72" },
-              { title: "Olympia Health", year: "MMXXIII", role: "Product Design", h: "h-96" },
-              { title: "Pythia Search", year: "MMXXIV", role: "Design System", h: "h-80" },
-            ].map((w, i) => (
-              <div key={w.title} className="group text-center">
-                <div className={`relative ${w.h} marble-card overflow-hidden mb-0 hover:scale-[1.02] transition-transform duration-700`}>
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,oklch(0.82_0.13_75/0.2),transparent_60%)]" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-display text-9xl text-foreground/10 group-hover:text-foreground/20 transition-colors">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-6 left-6 right-6 text-left">
-                    <p className="font-display text-[10px] tracking-[0.3em] text-muted-foreground">{w.role}</p>
-                    <h3 className="font-display text-2xl mt-2">{w.title}</h3>
-                  </div>
+          <div className="grid md:grid-cols-2 gap-6 mt-14">
+            {projects.map((p, i) => (
+              <a
+                key={p.title}
+                href={p.href}
+                target={p.href.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer"
+                className={`marble-card overflow-hidden p-6 group hover:scale-[1.01] transition-transform duration-500 ${i === 4 ? "md:col-span-2" : ""}`}
+              >
+                <div className="flex items-center justify-between mb-4 text-sm">
+                  <span className="px-3 py-1 rounded-full bg-foreground/10 font-display">{`{${p.tag}}`}</span>
+                  <span className="text-muted-foreground">{p.sub}</span>
                 </div>
-                <img
-                  src={podium}
-                  alt=""
-                  aria-hidden
-                  loading="lazy"
-                  className="w-40 mx-auto -mt-2 opacity-90"
-                />
-                <p className="font-display text-xs tracking-[0.3em] text-muted-foreground mt-2">{w.year}</p>
+                <h3 className="font-display text-2xl md:text-3xl mb-5">{p.title}</h3>
+                <div className="overflow-hidden rounded-lg bg-background">
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    loading="lazy"
+                    className="w-full h-72 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SKILLS */}
+      <section className="py-24 px-6">
+        <div ref={skillsR.ref} className={`max-w-7xl mx-auto transition-all duration-1000 ${skillsR.shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <p className="font-display text-sm text-muted-foreground">{"{02}"} — My Creative Box</p>
+          <h2 className="font-display text-4xl md:text-6xl mt-3">My Creative Box</h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+            {skills.map((s, i) => (
+              <div key={s.name} className="marble-card p-6 animate-fade-up" style={{ animationDelay: `${i * 80}ms` }}>
+                <div className="flex items-baseline justify-between">
+                  <h3 className="font-display text-2xl">{s.name}</h3>
+                  <span className="font-display text-3xl text-gradient-gold">{s.pct}%</span>
+                </div>
+                <p className="text-sm text-muted-foreground mt-1">{s.desc}</p>
+                <div className="mt-5 h-2 bg-foreground/10 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-foreground rounded-full transition-all duration-1000"
+                    style={{ width: skillsR.shown ? `${s.pct}%` : "0%" }}
+                  />
+                </div>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Wide work card */}
-          <div className="marble-card p-10 md:p-16 grid md:grid-cols-2 gap-10 items-center relative overflow-hidden">
-            <div className="absolute -right-10 -bottom-10 opacity-20">
-              <img src={statueAthlete} alt="" aria-hidden loading="lazy" className="w-96 animate-drift" />
-            </div>
-            <div className="relative z-10">
-              <p className="font-display text-xs tracking-[0.4em] text-muted-foreground">FEATURED COMMISSION</p>
-              <h3 className="font-display text-4xl md:text-5xl mt-4">Athena — Operations Suite</h3>
-              <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-                A complete redesign of an enterprise platform serving 40,000
-                analysts. Built upon a typographic system inspired by stone
-                inscriptions of the Acropolis.
+      {/* PROCESS */}
+      <section className="py-24 px-6 bg-foreground/[0.03]">
+        <div ref={processR.ref} className={`max-w-7xl mx-auto transition-all duration-1000 ${processR.shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <p className="font-display text-sm text-muted-foreground">{"{03}"} — Process</p>
+          <h2 className="font-display text-4xl md:text-6xl mt-3">How it works</h2>
+
+          <div className="mt-14 space-y-4">
+            {process.map((p) => (
+              <div key={p.n} className="marble-card p-6 md:p-8 grid md:grid-cols-[auto_1fr_auto] gap-6 items-start hover:translate-x-1 transition-transform">
+                <div className="font-display text-5xl text-gradient-gold w-20">{p.n}/</div>
+                <div>
+                  <h3 className="font-display text-2xl mb-2">{p.t}</h3>
+                  <p className="text-muted-foreground max-w-2xl">{p.d}</p>
+                </div>
+                <span className="px-4 py-1 rounded-full bg-foreground/10 text-sm whitespace-nowrap">{p.time}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="py-24 px-6">
+        <div ref={testR.ref} className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${testR.shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <p className="font-display text-sm text-muted-foreground">{"{04}"} — Testimonials</p>
+          <h2 className="font-display text-4xl md:text-5xl mt-3">Hear what people are saying about me.</h2>
+
+          <div className="marble-card mt-14 p-10 md:p-14">
+            <img src={testimonial} alt="Emmanuel Berit" className="w-20 h-20 rounded-full object-cover mx-auto mb-6" />
+            <p className="text-xl md:text-2xl italic font-body leading-relaxed">
+              "Jeremiah worked under my supervision and he delivered on time and he is good at what he does."
+            </p>
+            <p className="font-display mt-6">Emmanuel Berit</p>
+            <p className="text-sm text-muted-foreground">Vastlearn</p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section id="about" className="py-24 px-6 bg-foreground text-background relative overflow-hidden">
+        <img src={bust} alt="" aria-hidden className="absolute -right-10 bottom-0 w-72 md:w-96 opacity-20 animate-float pointer-events-none" />
+        <div ref={ctaR.ref} className={`max-w-5xl mx-auto relative z-10 transition-all duration-1000 ${ctaR.shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <h2 className="font-display text-4xl md:text-6xl max-w-3xl">
+            Let's build that project that will make the next <em className="text-gradient-gold not-italic">Debut</em>.
+          </h2>
+          <div className="mt-10 grid md:grid-cols-2 gap-10 items-end">
+            <div>
+              <p className="text-background/70 max-w-md">
+                Craft intuitive interfaces with purpose, blending creativity and clarity to deliver seamless, delightful user experiences.
               </p>
-              <div className="flex gap-8 mt-8 font-display text-xs tracking-[0.3em] text-foreground/70">
-                <div><div className="text-3xl text-gradient-gold mb-1">+62%</div>TASK SPEED</div>
-                <div><div className="text-3xl text-gradient-gold mb-1">9.4</div>SUS SCORE</div>
-                <div><div className="text-3xl text-gradient-gold mb-1">120k</div>USERS</div>
+              <div className="mt-8">
+                <p className="text-sm text-background/60">Contact</p>
+                <a href="mailto:Balogun.Jeremiah8@gmail.com" className="font-display text-xl md:text-2xl underline underline-offset-4">
+                  Balogun.Jeremiah8@gmail.com
+                </a>
+              </div>
+            </div>
+            <div className="md:text-right">
+              <p className="text-sm text-background/60 mb-3">Connect with me</p>
+              <div className="flex md:justify-end gap-6 text-sm">
+                <a href="#" className="hover:text-accent">Behance</a>
+                <a href="#" className="hover:text-accent">Dribbble</a>
+                <a href="#" className="hover:text-accent">LinkedIn</a>
+                <a href="#" className="hover:text-accent">Twitter</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ABOUT */}
-      <section id="about" className="py-32 px-6 bg-foreground/[0.03]">
-        <div
-          ref={about.ref}
-          className={`max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center transition-all duration-1000 ${about.shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        >
-          <div className="relative h-[600px] flex items-end justify-center">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,oklch(0.82_0.13_75/0.2),transparent_70%)]" />
-            <img
-              src={statueAthlete}
-              alt="Marble statue of a Greek athlete"
-              width={1024}
-              height={1280}
-              loading="lazy"
-              className="relative h-full w-auto object-contain animate-float drop-shadow-[0_40px_30px_rgba(60,40,20,0.25)]"
-            />
+      <footer className="py-8 px-6 bg-foreground text-background/70 border-t border-background/10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2">
+            <img src={logo} alt="" className="w-6 h-6" />
+            <span>Balogun Jeremiah</span>
           </div>
-
-          <div>
-            <p className="font-display text-xs tracking-[0.4em] text-muted-foreground mb-4">·  CHAPTER  II  ·</p>
-            <h2 className="font-display text-5xl md:text-6xl">
-              The <em className="text-gradient-gold not-italic">Atelier</em>
-            </h2>
-            <Meander className="mt-6 w-48 text-foreground/40" />
-            <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-              For a decade I have studied the geometry that governs both temple
-              and screen. My practice unites the patience of a sculptor with
-              the rigour of a systems thinker — every pixel placed as a column
-              upon the stylobate.
-            </p>
-
-            <ul className="mt-10 space-y-5">
-              {[
-                ["Design Systems", "Tokens, components, governance"],
-                ["Product Design", "Discovery, flows, prototypes"],
-                ["Brand & Identity", "Marks, typography, voice"],
-              ].map(([t, d]) => (
-                <li key={t} className="flex gap-6 items-start border-b border-foreground/15 pb-5">
-                  <span className="font-display text-2xl text-gradient-gold w-12">·</span>
-                  <div>
-                    <h4 className="font-display text-xl">{t}</h4>
-                    <p className="text-muted-foreground">{d}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" className="py-32 px-6 relative overflow-hidden">
-        <img
-          src={statueBust}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="absolute -left-20 top-10 w-80 opacity-20 animate-float pointer-events-none"
-        />
-        <img
-          src={podium}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="absolute -right-10 bottom-0 w-64 opacity-30 animate-drift pointer-events-none"
-        />
-        <div
-          ref={contact.ref}
-          className={`max-w-3xl mx-auto text-center relative z-10 transition-all duration-1000 ${contact.shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        >
-          <p className="font-display text-xs tracking-[0.4em] text-muted-foreground mb-4">·  CHAPTER  III  ·</p>
-          <h2 className="font-display text-5xl md:text-7xl">
-            Let us <em className="text-gradient-gold not-italic">create</em>
-            <br />
-            something timeless.
-          </h2>
-          <Meander className="mx-auto mt-6 w-48 text-foreground/40" />
-          <p className="mt-8 text-xl text-muted-foreground">
-            Currently accepting commissions for Spring MMXXVI.
-          </p>
-          <a
-            href="mailto:helena@marmaras.studio"
-            className="inline-block mt-10 font-display text-sm tracking-[0.3em] px-10 py-5 bg-foreground text-background hover:bg-accent hover:text-accent-foreground transition-all"
-          >
-            HELENA@MARMARAS.STUDIO
-          </a>
-          <div className="mt-12 flex justify-center gap-8 font-display text-xs tracking-[0.3em] text-muted-foreground">
-            <a href="#" className="hover:text-foreground">DRIBBBLE</a>
-            <span>·</span>
-            <a href="#" className="hover:text-foreground">BEHANCE</a>
-            <span>·</span>
-            <a href="#" className="hover:text-foreground">LINKEDIN</a>
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-foreground/20 py-8 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-4 font-display text-xs tracking-[0.3em] text-muted-foreground">
-          <p>© MMXXVI · HELENA MARMARAS</p>
-          <p>CRAFTED IN ATHENS</p>
+          <p>Created by Balogun Jeremiah</p>
         </div>
       </footer>
     </div>
