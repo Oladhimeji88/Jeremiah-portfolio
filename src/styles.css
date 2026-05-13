@@ -1,7 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -64,45 +64,45 @@
 
 :root {
   --radius: 0.25rem;
-  /* Greek marble palette */
-  --background: oklch(0.972 0.012 80);
-  --foreground: oklch(0.22 0.02 60);
-  --card: oklch(0.96 0.014 80);
-  --card-foreground: oklch(0.22 0.02 60);
-  --popover: oklch(0.972 0.012 80);
-  --popover-foreground: oklch(0.22 0.02 60);
-  --primary: oklch(0.32 0.04 50);
-  --primary-foreground: oklch(0.97 0.012 80);
-  --secondary: oklch(0.92 0.018 80);
-  --secondary-foreground: oklch(0.28 0.03 50);
-  --muted: oklch(0.93 0.014 80);
-  --muted-foreground: oklch(0.48 0.025 60);
-  --accent: oklch(0.72 0.13 70);
-  --accent-foreground: oklch(0.2 0.02 60);
+  /* Black palette */
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.97 0 0);
+  --primary: oklch(0.97 0 0);
+  --primary-foreground: oklch(0.08 0 0);
+  --secondary: oklch(0.18 0 0);
+  --secondary-foreground: oklch(0.9 0 0);
+  --muted: oklch(0.18 0 0);
+  --muted-foreground: oklch(0.6 0 0);
+  --accent: oklch(0.85 0 0);
+  --accent-foreground: oklch(0.08 0 0);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.85 0.02 75);
-  --input: oklch(0.88 0.018 75);
-  --ring: oklch(0.72 0.13 70);
-  --chart-1: oklch(0.72 0.13 70);
-  --chart-2: oklch(0.6 0.05 60);
-  --chart-3: oklch(0.4 0.04 50);
-  --chart-4: oklch(0.82 0.1 80);
-  --chart-5: oklch(0.5 0.06 40);
-  --sidebar: oklch(0.96 0.014 80);
-  --sidebar-foreground: oklch(0.22 0.02 60);
-  --sidebar-primary: oklch(0.32 0.04 50);
-  --sidebar-primary-foreground: oklch(0.97 0.012 80);
-  --sidebar-accent: oklch(0.92 0.018 80);
-  --sidebar-accent-foreground: oklch(0.28 0.03 50);
-  --sidebar-border: oklch(0.85 0.02 75);
-  --sidebar-ring: oklch(0.72 0.13 70);
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.2 0 0);
+  --ring: oklch(0.7 0 0);
+  --chart-1: oklch(0.7 0 0);
+  --chart-2: oklch(0.6 0 0);
+  --chart-3: oklch(0.5 0 0);
+  --chart-4: oklch(0.4 0 0);
+  --chart-5: oklch(0.3 0 0);
+  --sidebar: oklch(0.12 0 0);
+  --sidebar-foreground: oklch(0.97 0 0);
+  --sidebar-primary: oklch(0.97 0 0);
+  --sidebar-primary-foreground: oklch(0.08 0 0);
+  --sidebar-accent: oklch(0.18 0 0);
+  --sidebar-accent-foreground: oklch(0.9 0 0);
+  --sidebar-border: oklch(0.25 0 0);
+  --sidebar-ring: oklch(0.7 0 0);
 
-  --gradient-marble: linear-gradient(180deg, oklch(0.98 0.01 80) 0%, oklch(0.9 0.022 75) 100%);
-  --gradient-gold: linear-gradient(135deg, oklch(0.82 0.13 80), oklch(0.6 0.14 55));
-  --shadow-marble: 0 30px 60px -20px oklch(0.3 0.04 50 / 0.25);
-  --font-display: "Cinzel", serif;
-  --font-body: "Cormorant Garamond", serif;
+  --gradient-marble: linear-gradient(180deg, oklch(0.08 0 0) 0%, oklch(0.11 0 0) 100%);
+  --gradient-gold: linear-gradient(135deg, oklch(0.97 0 0), oklch(0.6 0 0));
+  --shadow-marble: 0 30px 60px -20px oklch(0 0 0 / 0.6);
+  --font-display: "Geist", sans-serif;
+  --font-body: "Geist", sans-serif;
 }
 
 @layer base {
@@ -124,7 +124,6 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: 0.02em;
   }
 }
 
@@ -138,7 +137,7 @@
     color: transparent;
   }
   .marble-card {
-    background: linear-gradient(180deg, oklch(0.98 0.01 80), oklch(0.93 0.018 75));
+    background: linear-gradient(180deg, oklch(0.13 0 0), oklch(0.1 0 0));
     box-shadow: var(--shadow-marble);
   }
   .meander-border {

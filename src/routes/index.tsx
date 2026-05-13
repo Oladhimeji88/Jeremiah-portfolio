@@ -118,7 +118,7 @@ function Index() {
           {/* Right column: headline */}
           <div className="md:pt-4">
             <div className="inline-flex items-center gap-2 mb-8 px-3 py-1 rounded-full bg-foreground/5 animate-fade-up">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               <span className="text-sm">Available for Freelance</span>
             </div>
 
