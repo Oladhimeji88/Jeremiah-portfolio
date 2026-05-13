@@ -100,9 +100,17 @@ function Index() {
   const [cursorLarge, setCursorLarge] = useState(false);
   const faceRef = useRef<HTMLImageElement>(null);
   const statueRef = useRef<HTMLImageElement>(null);
+  const statueContainerRef = useRef<HTMLDivElement>(null);
+  const statueIsDragging = useRef(false);
+  const statueDragStart = useRef({ mouseX: 0, mouseY: 0, elX: 0, elY: 0 });
+  const statueTranslate = useRef({ x: 0, y: 0 });
 
-  const makeTiltHandlers = (ref: React.RefObject<HTMLImageElement | null>) => ({
+  const makeTiltHandlers = (
+    ref: React.RefObject<HTMLImageElement | null>,
+    dragging?: React.RefObject<boolean>
+  ) => ({
     onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
+      if (dragging?.current) return;
       const img = ref.current;
       if (!img) return;
       const rect = img.getBoundingClientRect();
@@ -112,6 +120,7 @@ function Index() {
       img.style.transition = "transform 0.08s ease-out";
     },
     onMouseLeave: () => {
+      if (dragging?.current) return;
       const img = ref.current;
       if (!img) return;
       img.style.transform = "perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)";
@@ -121,11 +130,48 @@ function Index() {
 
   const handleFaceMove = makeTiltHandlers(faceRef).onMouseMove;
   const handleFaceLeave = makeTiltHandlers(faceRef).onMouseLeave;
+  const statueTilt = makeTiltHandlers(statueRef, statueIsDragging);
+
+  const handleStatueMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    statueIsDragging.current = true;
+    statueDragStart.current = {
+      mouseX: e.clientX,
+      mouseY: e.clientY,
+      elX: statueTranslate.current.x,
+      elY: statueTranslate.current.y,
+    };
+    const container = statueContainerRef.current;
+    if (container) container.style.cursor = "grabbing";
+  };
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
+    const onMove = (e: MouseEvent) => {
+      setCursor({ x: e.clientX, y: e.clientY });
+      if (!statueIsDragging.current) return;
+      const dx = e.clientX - statueDragStart.current.mouseX + statueDragStart.current.elX;
+      const dy = e.clientY - statueDragStart.current.mouseY + statueDragStart.current.elY;
+      statueTranslate.current = { x: dx, y: dy };
+      const container = statueContainerRef.current;
+      if (container) container.style.transform = `translate(${dx}px, ${dy}px)`;
+    };
+    const onUp = () => {
+      if (!statueIsDragging.current) return;
+      statueIsDragging.current = false;
+      const container = statueContainerRef.current;
+      if (container) container.style.cursor = "grab";
+      const img = statueRef.current;
+      if (img) {
+        img.style.transform = "perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)";
+        img.style.transition = "transform 0.5s ease";
+      }
+    };
     window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
   }, []);
 
   return (
@@ -235,16 +281,20 @@ function Index() {
 
       {/* HERO */}
       <section id="top" className="min-h-screen flex flex-col justify-end px-8 md:px-12 pb-12 pt-28 relative overflow-hidden">
-        {/* Statue image — right side */}
+        {/* Statue image — right side, draggable + tiltable */}
         <div
+          ref={statueContainerRef}
           className="absolute right-0 bottom-0 top-0 w-[45%] hidden md:block"
-          {...makeTiltHandlers(statueRef)}
+          className="absolute right-0 bottom-0 top-0 w-[45%] hidden md:block cursor-grab"
+          onMouseDown={handleStatueMouseDown}
+          onMouseMove={statueTilt.onMouseMove}
+          onMouseLeave={statueTilt.onMouseLeave}
         >
           <img
             ref={statueRef}
             src={statueReading}
             alt=""
-            className="absolute bottom-0 right-0 h-full max-h-[90vh] w-auto object-contain object-bottom"
+            className="absolute bottom-0 right-0 h-full max-h-[90vh] w-auto object-contain object-bottom pointer-events-none"
           />
         </div>
 

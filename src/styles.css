@@ -142,6 +142,8 @@
   .cursor-ring-lg { width: 64px; height: 64px; }
   .cursor-dot { transform: translate(-50%, -50%); }
   .float-img { transition: left 0.08s linear, top 0.08s linear; }
+  .cursor-grab { cursor: grab; }
+  .cursor-grabbing { cursor: grabbing; }
   .mask-fade-top {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
     mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
