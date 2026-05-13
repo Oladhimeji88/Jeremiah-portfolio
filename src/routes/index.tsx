@@ -40,6 +40,13 @@ const skills = [
   { name: "React", desc: "Front-end development", pct: 90, icon: "https://cdn.simpleicons.org/react/ffffff" },
 ];
 
+const socials = [
+  { label: "Behance", href: "https://www.behance.net/balogunjeremiah" },
+  { label: "Dribbble", href: "https://dribbble.com/Oladhimeji8" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/balogun-jeremiah/" },
+  { label: "Calendly", href: "https://calendly.com/balogun-jeremiah8/30min" },
+];
+
 const process = [
   { n: "01", t: "Discovery", d: "Research users, behaviors, and competitors. Define the problem statement and goals.", time: "3–5 days" },
   { n: "02", t: "Define", d: "Scope project goals with measurable outcomes like satisfaction and task completion.", time: "2–3 days" },
@@ -96,8 +103,8 @@ function Index() {
           ))}
         </nav>
         <div className="mt-16 flex gap-8 text-sm text-foreground/40">
-          {["Behance", "Dribbble", "LinkedIn", "Twitter"].map((s) => (
-            <a key={s} href="#" className="hover:text-foreground transition-colors">{s}</a>
+          {socials.map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">{s.label}</a>
           ))}
         </div>
       </div>
@@ -307,8 +314,8 @@ function Index() {
             Balogun.Jeremiah8@gmail.com
           </a>
           <div className="flex gap-8 text-xs text-foreground/30 tracking-wide">
-            {["Behance", "Dribbble", "LinkedIn", "Twitter"].map((s) => (
-              <a key={s} href="#" className="hover:text-foreground transition-colors uppercase tracking-widest">{s}</a>
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors uppercase tracking-widest">{s.label}</a>
             ))}
           </div>
         </div>
