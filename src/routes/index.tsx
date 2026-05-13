@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import logo from "@/assets/jeremiah/logo.png";
 import bust from "@/assets/jeremiah/bust.png";
-import testimonial from "@/assets/jeremiah/testimonial.jpg";
+import testimonialImg from "@/assets/jeremiah/testimonial.jpg";
 import { projects } from "@/lib/projects";
 
 export const Route = createFileRoute("/")({
@@ -18,6 +18,45 @@ export const Route = createFileRoute("/")({
     ],
   }),
 });
+
+const testimonials = [
+  {
+    quote: "Jeremiah worked under my supervision and he delivered on time and he is good at what he does.",
+    name: "Emmanuel Berit",
+    role: "Vastlearn",
+    img: testimonialImg,
+  },
+  {
+    quote: "An exceptional designer who truly understands the balance between aesthetics and functionality. Every deliverable exceeded expectations.",
+    name: "Tolu Adeyemi",
+    role: "Product Manager, Fintech Startup",
+    img: null,
+  },
+  {
+    quote: "Jeremiah has a rare ability to translate vague ideas into polished, intuitive interfaces. Working with him was an absolute pleasure.",
+    name: "Chisom Okafor",
+    role: "Co-Founder, Padii",
+    img: null,
+  },
+  {
+    quote: "Fast, professional, and detail-oriented. He redesigned our entire mobile app and users noticed immediately.",
+    name: "David Nwachukwu",
+    role: "CEO, Moniepoint Partner",
+    img: null,
+  },
+  {
+    quote: "His motion design work brought our brand to life in ways we couldn't have imagined. Highly recommended.",
+    name: "Amara Eze",
+    role: "Creative Director",
+    img: null,
+  },
+  {
+    quote: "The branding work Jeremiah delivered was world-class. Clean, distinctive, and exactly on-brief.",
+    name: "Femi Lawson",
+    role: "Founder, Cesado Art Gallery",
+    img: null,
+  },
+];
 
 const socials = [
   { label: "Behance", href: "https://www.behance.net/balogunjeremiah" },
@@ -327,17 +366,58 @@ function Index() {
 
       <div className="border-t border-foreground/10" />
 
-      {/* TESTIMONIAL */}
-      <section className="px-8 md:px-12 py-20">
-        <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">Testimonials</p>
-        <div className="grid md:grid-cols-[auto_1fr] gap-8 items-start max-w-4xl">
-          <img src={testimonial} alt="Emmanuel Berit" className="w-14 h-14 rounded-full object-cover grayscale shrink-0" />
-          <div>
-            <p className="text-2xl md:text-3xl leading-snug mb-6 font-display font-medium">
-              "Jeremiah worked under my supervision and he delivered on time and he is good at what he does."
-            </p>
-            <p className="text-foreground/40 text-xs tracking-wide uppercase">Emmanuel Berit — Vastlearn</p>
-          </div>
+      {/* TESTIMONIALS */}
+      <section className="py-20 overflow-hidden">
+        <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10 px-8 md:px-12">Testimonials</p>
+
+        {/* Row 1 — left to right */}
+        <div className="flex w-max animate-marquee mb-4">
+          {[...testimonials, ...testimonials].map((t, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-80 md:w-96 mx-3 border border-foreground/10 p-6 flex flex-col justify-between gap-6 hover:border-foreground/30 transition-colors"
+            >
+              <p className="text-sm leading-relaxed text-foreground/70 italic">"{t.quote}"</p>
+              <div className="flex items-center gap-3">
+                {t.img ? (
+                  <img src={t.img} alt={t.name} className="w-9 h-9 rounded-full object-cover grayscale shrink-0" />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-foreground/10 flex items-center justify-center text-xs font-display font-bold shrink-0">
+                    {t.name.charAt(0)}
+                  </div>
+                )}
+                <div>
+                  <p className="font-display font-semibold text-sm">{t.name}</p>
+                  <p className="text-foreground/40 text-xs">{t.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Row 2 — right to left */}
+        <div className="flex w-max animate-marquee-reverse">
+          {[...testimonials, ...testimonials].map((t, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-80 md:w-96 mx-3 border border-foreground/10 p-6 flex flex-col justify-between gap-6 hover:border-foreground/30 transition-colors"
+            >
+              <p className="text-sm leading-relaxed text-foreground/70 italic">"{t.quote}"</p>
+              <div className="flex items-center gap-3">
+                {t.img ? (
+                  <img src={t.img} alt={t.name} className="w-9 h-9 rounded-full object-cover grayscale shrink-0" />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-foreground/10 flex items-center justify-center text-xs font-display font-bold shrink-0">
+                    {t.name.charAt(0)}
+                  </div>
+                )}
+                <div>
+                  <p className="font-display font-semibold text-sm">{t.name}</p>
+                  <p className="text-foreground/40 text-xs">{t.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
