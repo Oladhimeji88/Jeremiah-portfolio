@@ -172,7 +172,7 @@ function AboutPage() {
             <img
               src={jeremiah}
               alt="Balogun Jeremiah"
-              className="w-48 h-48 rounded-full object-cover object-top grayscale border border-foreground/10 shadow-marble animate-oscillate pointer-events-none select-none"
+              className="w-72 h-72 rounded-full object-cover object-top grayscale border-4 border-white shadow-marble animate-oscillate pointer-events-none select-none"
             />
           </div>
 
@@ -181,7 +181,7 @@ function AboutPage() {
             <img
               src={jeremiah}
               alt="Balogun Jeremiah"
-              className="w-32 h-32 rounded-full object-cover object-top grayscale border border-foreground/10 animate-oscillate"
+              className="w-44 h-44 rounded-full object-cover object-top grayscale border-4 border-white animate-oscillate"
             />
           </div>
         </div>
