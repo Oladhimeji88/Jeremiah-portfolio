@@ -130,6 +130,24 @@
 @layer utilities {
   .font-display { font-family: var(--font-display); }
   .font-body { font-family: var(--font-body); }
+
+  .no-cursor { cursor: none; }
+
+  .cursor-ring {
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    transition: width 0.15s ease-out, height 0.15s ease-out;
+  }
+  .cursor-ring-lg { width: 64px; height: 64px; }
+  .cursor-dot { transform: translate(-50%, -50%); }
+  .float-img { transition: left 0.08s linear, top 0.08s linear; }
+
+  .text-fluid-hero   { font-size: clamp(3.5rem, 14vw, 14rem); }
+  .text-fluid-project { font-size: clamp(1.5rem, 3.5vw, 3rem); }
+  .text-fluid-process { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+  .text-fluid-cta    { font-size: clamp(3rem, 10vw, 10rem); }
+
   .text-gradient-gold {
     background: var(--gradient-gold);
     -webkit-background-clip: text;
