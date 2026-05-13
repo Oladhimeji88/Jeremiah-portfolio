@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import bust from "@/assets/jeremiah/bust.png";
 import jeremiah from "@/assets/jeremiah/Jeremiah.png";
 
@@ -97,10 +97,46 @@ const toolset = [
 function AboutPage() {
   const [cursor, setCursor] = useState({ x: -200, y: -200 });
 
+  const portraitDragRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const dragStart = useRef({ mouseX: 0, mouseY: 0, elX: 0, elY: 0 });
+  const translate = useRef({ x: 0, y: 0 });
+
+  const handlePortraitMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    isDragging.current = true;
+    dragStart.current = {
+      mouseX: e.clientX,
+      mouseY: e.clientY,
+      elX: translate.current.x,
+      elY: translate.current.y,
+    };
+    const el = portraitDragRef.current;
+    if (el) el.style.cursor = "grabbing";
+  };
+
   useEffect(() => {
-    const onMove = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
+    const onMove = (e: MouseEvent) => {
+      setCursor({ x: e.clientX, y: e.clientY });
+      if (!isDragging.current) return;
+      const dx = e.clientX - dragStart.current.mouseX + dragStart.current.elX;
+      const dy = e.clientY - dragStart.current.mouseY + dragStart.current.elY;
+      translate.current = { x: dx, y: dy };
+      const el = portraitDragRef.current;
+      if (el) el.style.transform = `translate(${dx}px, ${dy}px)`;
+    };
+    const onUp = () => {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      const el = portraitDragRef.current;
+      if (el) el.style.cursor = "grab";
+    };
     window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
   }, []);
 
   return (
@@ -127,21 +163,25 @@ function AboutPage() {
             <span className="block">That Scale</span>
           </h1>
 
-          {/* Floating circular portrait */}
-          <div className="absolute top-1/2 -translate-y-1/2 right-0 md:right-12 animate-float hidden md:block">
+          {/* Draggable + oscillating portrait — desktop */}
+          <div
+            ref={portraitDragRef}
+            className="absolute top-1/2 -translate-y-1/2 right-0 md:right-12 hidden md:block cursor-grab"
+            onMouseDown={handlePortraitMouseDown}
+          >
             <img
               src={jeremiah}
               alt="Balogun Jeremiah"
-              className="w-48 h-48 rounded-full object-cover object-top grayscale border border-foreground/10 shadow-marble"
+              className="w-48 h-48 rounded-full object-cover object-top grayscale border border-foreground/10 shadow-marble animate-oscillate pointer-events-none select-none"
             />
           </div>
 
           {/* Mobile: portrait below heading */}
-          <div className="mt-8 flex justify-start animate-float md:hidden">
+          <div className="mt-8 flex justify-start md:hidden">
             <img
               src={jeremiah}
               alt="Balogun Jeremiah"
-              className="w-32 h-32 rounded-full object-cover object-top grayscale border border-foreground/10"
+              className="w-32 h-32 rounded-full object-cover object-top grayscale border border-foreground/10 animate-oscillate"
             />
           </div>
         </div>
