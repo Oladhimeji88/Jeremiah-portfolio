@@ -36,12 +36,12 @@ const services = [
 ];
 
 const skills = [
-  { name: "Framer", desc: "No-code website builder", pct: 90, icon: "https://cdn.simpleicons.org/framer/ffffff" },
-  { name: "Photoshop", desc: "Visual design & retouching", pct: 93, icon: "https://cdn.simpleicons.org/adobephotoshop/ffffff" },
-  { name: "Figma", desc: "Interface & prototyping", pct: 90, icon: "https://cdn.simpleicons.org/figma/ffffff" },
-  { name: "After Effects", desc: "Motion design", pct: 50, icon: "https://cdn.simpleicons.org/adobeaftereffects/ffffff" },
-  { name: "Rive", desc: "Interactive animation", pct: 30, icon: "https://cdn.simpleicons.org/rive/ffffff" },
-  { name: "React", desc: "Front-end development", pct: 90, icon: "https://cdn.simpleicons.org/react/ffffff" },
+  { name: "Framer", desc: "No-code website builder", pct: 90, icon: "https://cdn.simpleicons.org/framer/ffffff", abbr: null },
+  { name: "Photoshop", desc: "Visual design & retouching", pct: 93, icon: null, abbr: "Ps" },
+  { name: "Figma", desc: "Interface & prototyping", pct: 90, icon: "https://cdn.simpleicons.org/figma/ffffff", abbr: null },
+  { name: "After Effects", desc: "Motion design", pct: 50, icon: null, abbr: "Ae" },
+  { name: "Rive", desc: "Interactive animation", pct: 30, icon: "https://cdn.simpleicons.org/rive/ffffff", abbr: null },
+  { name: "React", desc: "Front-end development", pct: 90, icon: "https://cdn.simpleicons.org/react/ffffff", abbr: null },
 ];
 
 const process = [
@@ -96,7 +96,7 @@ function Index() {
                 key={label}
                 href={href}
                 onClick={() => setMenuOpen(false)}
-                className="block font-display font-bold text-6xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200"
+                className="block font-display font-bold text-6xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200 uppercase"
               >
                 {label}
               </a>
@@ -203,7 +203,7 @@ function Index() {
               onMouseLeave={() => { setHoveredProject(null); setCursorLarge(false); }}
             >
               <span className="text-foreground/25 text-xs w-6 shrink-0">{p.n}</span>
-              <h3 className="font-display font-bold flex-1 text-fluid-project group-hover:translate-x-2 transition-transform duration-300">
+              <h3 className="font-display font-bold flex-1 text-fluid-project group-hover:translate-x-2 transition-transform duration-300 uppercase">
                 {p.title}
               </h3>
               <span className="hidden md:block text-foreground/30 text-xs tracking-wide shrink-0">{p.tag}</span>
@@ -253,24 +253,50 @@ function Index() {
 
       {/* SKILLS */}
       <section id="skills" className="px-8 md:px-12 py-20">
-        <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">Skills & Tools</p>
-        <div>
+        <div className="flex items-baseline justify-between mb-10">
+          <p className="text-foreground/40 text-xs tracking-widest uppercase">Skills & Tools</p>
+          <p className="text-foreground/20 text-xs">{skills.length} tools</p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {skills.map((s) => (
             <div
               key={s.name}
-              className="flex items-center gap-4 py-4 border-t border-foreground/10 hover:border-foreground/25 transition-colors group"
+              className="group relative border border-foreground/10 hover:border-foreground/35 bg-foreground/[0.03] hover:bg-foreground/[0.07] transition-all duration-300 p-6 flex flex-col justify-between min-h-44 overflow-hidden"
             >
-              <img src={s.icon} alt={s.name} className="w-5 h-5 object-contain opacity-50 group-hover:opacity-100 transition-opacity shrink-0" />
-              <div className="flex-1">
-                <span className="font-display font-semibold text-lg group-hover:translate-x-1 transition-transform duration-200 inline-block">
-                  {s.name}
+              {/* Top row — icon + percentage */}
+              <div className="flex items-start justify-between mb-6">
+                {s.icon ? (
+                  <img
+                    src={s.icon}
+                    alt={s.name}
+                    className="w-8 h-8 object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                ) : (
+                  <span className="font-display font-bold text-lg text-foreground/50 group-hover:text-foreground transition-colors duration-300 italic">
+                    {s.abbr}
+                  </span>
+                )}
+                <span className="font-display font-bold text-3xl text-foreground/15 group-hover:text-foreground/40 transition-colors duration-300 tabular-nums leading-none">
+                  {s.pct}
                 </span>
-                <span className="text-foreground/30 text-xs ml-3">{s.desc}</span>
               </div>
-              <span className="text-foreground/25 text-xs tabular-nums">{s.pct}%</span>
+
+              {/* Bottom — name + desc + bar */}
+              <div>
+                <p className="font-display font-bold text-xl mb-1 group-hover:translate-x-0.5 transition-transform duration-300">
+                  {s.name}
+                </p>
+                <p className="text-foreground/35 text-xs leading-relaxed mb-4">{s.desc}</p>
+                {/* Progress bar */}
+                <div className="h-px w-full bg-foreground/10">
+                  <div
+                    className="h-px bg-foreground/60 group-hover:bg-foreground transition-colors duration-500"
+                    style={{ width: `${s.pct}%` }}
+                  />
+                </div>
+              </div>
             </div>
           ))}
-          <div className="border-t border-foreground/10" />
         </div>
       </section>
 
