@@ -207,7 +207,7 @@ function Index() {
                   key={label}
                   to={route as "/about"}
                   onClick={() => setMenuOpen(false)}
-                  className="block font-display font-bold text-6xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200 uppercase"
+                  className="block font-display font-bold text-4xl sm:text-5xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200 uppercase"
                 >
                   {label}
                 </Link>
@@ -216,7 +216,7 @@ function Index() {
                   key={label}
                   href={href!}
                   onClick={() => setMenuOpen(false)}
-                  className="block font-display font-bold text-6xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200 uppercase"
+                  className="block font-display font-bold text-4xl sm:text-5xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200 uppercase"
                 >
                   {label}
                 </a>
@@ -280,7 +280,7 @@ function Index() {
       </header>
 
       {/* HERO */}
-      <section id="top" className="min-h-screen flex flex-col justify-end px-8 md:px-12 pb-12 pt-28 relative overflow-hidden">
+      <section id="top" className="min-h-dvh flex flex-col justify-end px-8 md:px-12 pb-10 md:pb-12 pt-24 md:pt-28 relative overflow-hidden">
         {/* Statue image — right side, draggable + tiltable */}
         <div
           ref={statueContainerRef}
@@ -474,7 +474,7 @@ function Index() {
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="shrink-0 w-80 md:w-96 mx-3 border border-foreground/10 p-6 flex flex-col justify-between gap-6 hover:border-foreground/30 transition-colors"
+              className="shrink-0 w-[min(320px,80vw)] md:w-96 mx-3 border border-foreground/10 p-6 flex flex-col justify-between gap-6 hover:border-foreground/30 transition-colors"
             >
               <p className="text-sm leading-relaxed text-foreground/70 italic">"{t.quote}"</p>
               <div className="flex items-center gap-3">
@@ -499,7 +499,7 @@ function Index() {
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="shrink-0 w-80 md:w-96 mx-3 border border-foreground/10 p-6 flex flex-col justify-between gap-6 hover:border-foreground/30 transition-colors"
+              className="shrink-0 w-[min(320px,80vw)] md:w-96 mx-3 border border-foreground/10 p-6 flex flex-col justify-between gap-6 hover:border-foreground/30 transition-colors"
             >
               <p className="text-sm leading-relaxed text-foreground/70 italic">"{t.quote}"</p>
               <div className="flex items-center gap-3">
