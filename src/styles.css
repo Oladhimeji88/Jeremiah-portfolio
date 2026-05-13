@@ -221,6 +221,41 @@
 .animate-marquee-reverse:hover { animation-play-state: paused; }
 
 .animate-float { animation: float-slow 7s ease-in-out infinite; }
+
+/* Preloader */
+@keyframes preloader-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+@keyframes preloader-bar {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+.preloader-logo {
+  width: 3rem; height: 3rem;
+  object-fit: contain;
+  filter: invert(1);
+  animation: preloader-pulse 1.6s ease-in-out infinite;
+}
+.preloader-bar-track {
+  width: 160px; height: 1px;
+  background: oklch(0.25 0 0);
+  position: relative;
+  overflow: hidden;
+}
+.preloader-bar-fill {
+  position: absolute; inset: 0;
+  background: oklch(0.97 0 0);
+  animation: preloader-bar 1.8s ease-in-out infinite;
+}
+.preloader-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #666;
+}
 .animate-drift { animation: drift 5s ease-in-out infinite; }
 .animate-fade-up { animation: fade-up 0.9s ease-out both; }
 .animate-rise { animation: rise 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }

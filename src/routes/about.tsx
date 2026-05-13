@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import bust from "@/assets/jeremiah/bust.png";
 import jeremiah from "@/assets/jeremiah/Jeremiah.png";
 import podium from "@/assets/podium.png";
+import resumeUrl from "@/assets/Balogun Jeremiah Resume.pdf?url";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -191,9 +192,16 @@ function AboutPage() {
           <p className="text-lg md:text-xl text-foreground/70 leading-relaxed mb-4">
             I didn't start with design. I started with understanding how things work. With a background in Physical Science, I developed a natural way of thinking in <span className="text-foreground font-medium">systems, structure, and cause-effect relationships</span>.
           </p>
-          <p className="text-lg md:text-xl text-foreground/70 leading-relaxed">
+          <p className="text-lg md:text-xl text-foreground/70 leading-relaxed mb-8">
             That mindset led me into product design, where I now focus on solving complex problems and turning them into simple, intuitive experiences. Today, I design products across <span className="text-foreground font-medium">SaaS, AI, and real-world service platforms</span>, helping businesses move from confusion to clarity and users from frustration to flow.
           </p>
+          <a
+            href={resumeUrl}
+            download="Balogun Jeremiah Resume.pdf"
+            className="inline-flex items-center gap-4 border border-foreground/20 px-6 py-3 text-xs tracking-widest uppercase hover:border-foreground hover:text-foreground text-foreground/60 transition-all duration-300"
+          >
+            Download CV <span>↓</span>
+          </a>
         </div>
       </section>
 

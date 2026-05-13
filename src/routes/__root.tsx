@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 import appCss from "../styles.css?url";
 import logoUrl from "../assets/jeremiah/logo.png?url";
@@ -107,11 +108,44 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+function Preloader() {
+  const [visible, setVisible] = useState(true);
+  const [fading, setFading] = useState(false);
+
+  useEffect(() => {
+    const onLoad = () => {
+      setFading(true);
+      setTimeout(() => setVisible(false), 700);
+    };
+    if (document.readyState === "complete") {
+      onLoad();
+    } else {
+      window.addEventListener("load", onLoad);
+      return () => window.removeEventListener("load", onLoad);
+    }
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div className={`fixed inset-0 z-[99999] bg-background flex flex-col items-center justify-center gap-8 transition-opacity duration-700 ${fading ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+      <img src={logoUrl} alt="" className="preloader-logo" />
+      <div className="flex flex-col items-center gap-3">
+        <div className="preloader-bar-track">
+          <div className="preloader-bar-fill" />
+        </div>
+        <span className="preloader-label">Loading</span>
+      </div>
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Preloader />
       <Outlet />
     </QueryClientProvider>
   );
