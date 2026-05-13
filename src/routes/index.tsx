@@ -125,21 +125,32 @@ function Index() {
           <p className="text-foreground/30 text-xs tracking-widest uppercase mb-12">Navigation</p>
           <nav className="space-y-1">
             {[
-              { label: "Work", href: "#projects" },
-              { label: "Services", href: "#services" },
-              { label: "Skills", href: "#skills" },
-              { label: "Process", href: "#process" },
-              { label: "Contact", href: "#contact" },
-            ].map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className="block font-display font-bold text-6xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200 uppercase"
-              >
-                {label}
-              </a>
-            ))}
+              { label: "Work", href: "#projects", route: null },
+              { label: "About", href: null, route: "/about" },
+              { label: "Services", href: "#services", route: null },
+              { label: "Skills", href: "#skills", route: null },
+              { label: "Contact", href: "#contact", route: null },
+            ].map(({ label, href, route }) =>
+              route ? (
+                <Link
+                  key={label}
+                  to={route as "/about"}
+                  onClick={() => setMenuOpen(false)}
+                  className="block font-display font-bold text-6xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200 uppercase"
+                >
+                  {label}
+                </Link>
+              ) : (
+                <a
+                  key={label}
+                  href={href!}
+                  onClick={() => setMenuOpen(false)}
+                  className="block font-display font-bold text-6xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200 uppercase"
+                >
+                  {label}
+                </a>
+              )
+            )}
           </nav>
           <div className="mt-14 flex gap-8 text-sm text-foreground/40">
             {socials.map((s) => (
@@ -157,9 +168,9 @@ function Index() {
             <img src={bust} alt="Balogun Jeremiah" className="w-24 h-24 object-cover rounded-full grayscale mb-6" />
             <h2 className="font-display font-bold text-xl mb-3">Balogun Jeremiah</h2>
             <p className="text-foreground/50 text-sm leading-relaxed mb-6">
-              UI/UX Designer & Creative based in Lagos, Nigeria. I design interfaces, brand identities, motion graphics, and build with AI.
+              I didn't start with design — I started with understanding how things work. Background in Physical Science. Now I design systems that scale across SaaS, AI, and real-world platforms.
             </p>
-            <p className="text-foreground/30 text-xs tracking-widest uppercase">4+ years · 2021 — Present</p>
+            <p className="text-foreground/30 text-xs tracking-widest uppercase">B.Sc. Applied Physics · Lagos State University · 2023</p>
           </div>
           <a
             href="mailto:Balogun.jeremiah8@gmail.com"
@@ -209,7 +220,7 @@ function Index() {
           </h1>
           <div className="mt-10 flex flex-col md:flex-row md:items-end justify-between gap-8 border-t border-foreground/10 pt-8">
             <p className="max-w-sm text-foreground/50 text-base leading-relaxed">
-              Turning ideas into realities through thoughtful interfaces and digital products.
+              Senior Product Designer. I help businesses move from confusion to clarity and users from frustration to flow.
             </p>
             <a
               href="#projects"
