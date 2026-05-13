@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import bust from "@/assets/jeremiah/bust.png";
 import jeremiah from "@/assets/jeremiah/Jeremiah.png";
+import podium from "@/assets/podium.png";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -308,15 +309,20 @@ function AboutPage() {
       <div className="border-t border-foreground/10" />
 
       {/* CTA */}
-      <section className="px-8 md:px-12 py-20">
-        <p className="text-foreground/40 text-xs tracking-widest uppercase mb-8">Get in touch</p>
+      <section className="relative px-8 md:px-12 py-20 overflow-hidden">
+        {/* Podium — floating right */}
+        <div className="absolute right-12 bottom-0 w-52 hidden md:block pointer-events-none select-none animate-drift">
+          <img src={podium} alt="" className="w-full object-contain object-bottom" />
+        </div>
+
+        <p className="text-foreground/40 text-xs tracking-widest uppercase mb-8 relative z-10">Get in touch</p>
         <a
           href="mailto:Balogun.jeremiah8@gmail.com"
-          className="block font-display font-bold leading-none tracking-tighter text-fluid-cta hover:text-foreground/30 transition-colors duration-300"
+          className="block font-display font-bold leading-none tracking-tighter text-fluid-cta hover:text-foreground/30 transition-colors duration-300 relative z-10 md:max-w-[70%]"
         >
           LET'S TALK
         </a>
-        <div className="mt-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-t border-foreground/10 pt-8">
+        <div className="mt-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-t border-foreground/10 pt-8 relative z-10">
           <a href="mailto:Balogun.Jeremiah8@gmail.com" className="text-foreground/50 hover:text-foreground transition-colors text-sm">
             Balogun.Jeremiah8@gmail.com
           </a>
