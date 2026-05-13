@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/jeremiah/logo.png";
 import bust from "@/assets/jeremiah/bust.png";
 import testimonialImg from "@/assets/jeremiah/testimonial.jpg";
@@ -98,6 +98,29 @@ function Index() {
   const [hoveredProject, setHoveredProject] = useState<(typeof projects)[0] | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [cursorLarge, setCursorLarge] = useState(false);
+  const faceRef = useRef<HTMLImageElement>(null);
+  const statueRef = useRef<HTMLImageElement>(null);
+
+  const makeTiltHandlers = (ref: React.RefObject<HTMLImageElement | null>) => ({
+    onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
+      const img = ref.current;
+      if (!img) return;
+      const rect = img.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      img.style.transform = `perspective(500px) rotateX(${-y * 22}deg) rotateY(${x * 22}deg) scale(1.04)`;
+      img.style.transition = "transform 0.08s ease-out";
+    },
+    onMouseLeave: () => {
+      const img = ref.current;
+      if (!img) return;
+      img.style.transform = "perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)";
+      img.style.transition = "transform 0.5s ease";
+    },
+  });
+
+  const handleFaceMove = makeTiltHandlers(faceRef).onMouseMove;
+  const handleFaceLeave = makeTiltHandlers(faceRef).onMouseLeave;
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
@@ -213,8 +236,12 @@ function Index() {
       {/* HERO */}
       <section id="top" className="min-h-screen flex flex-col justify-end px-8 md:px-12 pb-12 pt-28 relative overflow-hidden">
         {/* Statue image — right side */}
-        <div className="absolute right-0 bottom-0 top-0 w-[45%] hidden md:block pointer-events-none">
+        <div
+          className="absolute right-0 bottom-0 top-0 w-[45%] hidden md:block"
+          {...makeTiltHandlers(statueRef)}
+        >
           <img
+            ref={statueRef}
             src={statueReading}
             alt=""
             className="absolute bottom-0 right-0 h-full max-h-[90vh] w-auto object-contain object-bottom"
@@ -450,8 +477,13 @@ function Index() {
         <p className="text-foreground/40 text-xs tracking-widest uppercase mb-8">Get in touch</p>
 
         {/* Face image — right side, bleeds into bottom */}
-        <div className="absolute right-0 bottom-0 w-[38%] hidden md:block pointer-events-none select-none">
+        <div
+          className="absolute right-[30%] bottom-0 w-[18%] hidden md:block select-none"
+          onMouseMove={handleFaceMove}
+          onMouseLeave={handleFaceLeave}
+        >
           <img
+            ref={faceRef}
             src={faceBroken}
             alt=""
             className="w-full object-contain object-bottom mask-fade-top"
