@@ -1,13 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import logo from "@/assets/jeremiah/logo.png";
 import bust from "@/assets/jeremiah/bust.png";
-import pPadii from "@/assets/jeremiah/p-padii.png";
-import pNetflix from "@/assets/jeremiah/p-netflix.png";
-import pMoniepoint from "@/assets/jeremiah/p-moniepoint.png";
-import pLagrent from "@/assets/jeremiah/p-lagrent.png";
-import pCesado from "@/assets/jeremiah/p-cesado.png";
 import testimonial from "@/assets/jeremiah/testimonial.jpg";
+import { projects } from "@/lib/projects";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -23,12 +19,20 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const projects = [
-  { n: "01", tag: "Mobile Design", title: "PADII Conversational AI", year: "2024", img: pPadii, href: "#" },
-  { n: "02", tag: "Website Design", title: "Netflix AI Movie Creator", year: "2024", img: pNetflix, href: "#" },
-  { n: "03", tag: "Mobile Design", title: "Moniepoint Mini Bank", year: "2023", img: pMoniepoint, href: "#" },
-  { n: "04", tag: "Website Design", title: "Lagrent Rent App", year: "2023", img: pLagrent, href: "https://www.behance.net/gallery/231280891/LAGOS-HOME-RENT" },
-  { n: "05", tag: "Website Design", title: "Cesado Art Gallery", year: "2023", img: pCesado, href: "#" },
+const socials = [
+  { label: "Behance", href: "https://www.behance.net/balogunjeremiah" },
+  { label: "Dribbble", href: "https://dribbble.com/Oladhimeji8" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/balogun-jeremiah/" },
+  { label: "Calendly", href: "https://calendly.com/balogun-jeremiah8/30min" },
+];
+
+const services = [
+  { n: "01", title: "UI/UX Design", desc: "End-to-end product design — wireframes, prototypes, and high-fidelity interfaces." },
+  { n: "02", title: "Branding", desc: "Visual identity systems, logos, colour palettes, and brand guidelines." },
+  { n: "03", title: "Motion & Video Editing", desc: "Animated interfaces, motion graphics, and polished video production." },
+  { n: "04", title: "Graphic Design", desc: "Print and digital assets — posters, banners, social media, and marketing collateral." },
+  { n: "05", title: "AI Development", desc: "Building apps and tools with AI — Claude, Codex, and modern AI APIs." },
+  { n: "06", title: "Illustration", desc: "Custom digital illustrations, icons, and visual storytelling." },
 ];
 
 const skills = [
@@ -38,13 +42,6 @@ const skills = [
   { name: "After Effects", desc: "Motion design", pct: 50, icon: "https://cdn.simpleicons.org/adobeaftereffects/ffffff" },
   { name: "Rive", desc: "Interactive animation", pct: 30, icon: "https://cdn.simpleicons.org/rive/ffffff" },
   { name: "React", desc: "Front-end development", pct: 90, icon: "https://cdn.simpleicons.org/react/ffffff" },
-];
-
-const socials = [
-  { label: "Behance", href: "https://www.behance.net/balogunjeremiah" },
-  { label: "Dribbble", href: "https://dribbble.com/Oladhimeji8" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/balogun-jeremiah/" },
-  { label: "Calendly", href: "https://calendly.com/balogun-jeremiah8/30min" },
 ];
 
 const process = [
@@ -72,40 +69,65 @@ function Index() {
 
       {/* Custom cursor */}
       <div
-        className={`fixed z-[9999] pointer-events-none rounded-full border border-foreground/40 cursor-ring ${cursorLarge ? "cursor-ring-lg" : ""}`}
+        className={`fixed z-9999 pointer-events-none rounded-full border border-foreground/40 cursor-ring ${cursorLarge ? "cursor-ring-lg" : ""}`}
         style={{ left: cursor.x, top: cursor.y }}
       />
       <div
-        className="fixed z-[9999] pointer-events-none w-1.5 h-1.5 rounded-full bg-foreground cursor-dot"
+        className="fixed z-9999 pointer-events-none w-1.5 h-1.5 rounded-full bg-foreground cursor-dot"
         style={{ left: cursor.x, top: cursor.y }}
       />
 
       {/* Menu overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-background flex flex-col justify-center px-10 md:px-20 transition-all duration-500 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-40 bg-background flex flex-col md:flex-row transition-all duration-500 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <p className="text-foreground/30 text-xs tracking-widest uppercase mb-12">Navigation</p>
-        <nav className="space-y-1">
-          {[
-            { label: "Work", href: "#projects" },
-            { label: "Skills", href: "#skills" },
-            { label: "Process", href: "#process" },
-            { label: "Contact", href: "#contact" },
-          ].map(({ label, href }) => (
-            <a
-              key={label}
-              href={href}
-              onClick={() => setMenuOpen(false)}
-              className="block font-display font-bold text-7xl md:text-9xl leading-none hover:text-foreground/30 transition-colors duration-200"
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-        <div className="mt-16 flex gap-8 text-sm text-foreground/40">
-          {socials.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">{s.label}</a>
-          ))}
+        {/* Left — navigation links */}
+        <div className="flex-1 flex flex-col justify-center px-10 md:px-20 py-24">
+          <p className="text-foreground/30 text-xs tracking-widest uppercase mb-12">Navigation</p>
+          <nav className="space-y-1">
+            {[
+              { label: "Work", href: "#projects" },
+              { label: "Services", href: "#services" },
+              { label: "Skills", href: "#skills" },
+              { label: "Process", href: "#process" },
+              { label: "Contact", href: "#contact" },
+            ].map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className="block font-display font-bold text-6xl md:text-8xl leading-none hover:text-foreground/30 transition-colors duration-200"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+          <div className="mt-14 flex gap-8 text-sm text-foreground/40">
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Right — about */}
+        <div className="hidden md:flex flex-col justify-between w-80 border-l border-foreground/10 px-10 py-24">
+          <div>
+            <p className="text-foreground/30 text-xs tracking-widest uppercase mb-8">About</p>
+            <img src={bust} alt="Balogun Jeremiah" className="w-24 h-24 object-cover rounded-full grayscale mb-6" />
+            <h2 className="font-display font-bold text-xl mb-3">Balogun Jeremiah</h2>
+            <p className="text-foreground/50 text-sm leading-relaxed mb-6">
+              UI/UX Designer & Creative based in Lagos, Nigeria. I design interfaces, brand identities, motion graphics, and build with AI.
+            </p>
+            <p className="text-foreground/30 text-xs tracking-widest uppercase">4+ years · 2021 — Present</p>
+          </div>
+          <a
+            href="mailto:Balogun.jeremiah8@gmail.com"
+            className="text-xs tracking-widest uppercase text-foreground/40 hover:text-foreground transition-colors"
+          >
+            Balogun.jeremiah8@gmail.com
+          </a>
         </div>
       </div>
 
@@ -172,11 +194,10 @@ function Index() {
         </div>
         <div>
           {projects.map((p) => (
-            <a
-              key={p.title}
-              href={p.href}
-              target={p.href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
+            <Link
+              key={p.id}
+              to="/projects/$projectId"
+              params={{ projectId: p.id }}
               className="group flex items-center gap-4 md:gap-8 py-6 border-t border-foreground/10 hover:border-foreground/25 transition-all duration-300"
               onMouseEnter={() => { setHoveredProject(p); setCursorLarge(true); }}
               onMouseLeave={() => { setHoveredProject(null); setCursorLarge(false); }}
@@ -188,7 +209,7 @@ function Index() {
               <span className="hidden md:block text-foreground/30 text-xs tracking-wide shrink-0">{p.tag}</span>
               <span className="text-foreground/25 text-xs shrink-0">{p.year}</span>
               <span className="text-foreground/0 group-hover:text-foreground/60 transition-colors text-lg shrink-0">→</span>
-            </a>
+            </Link>
           ))}
           <div className="border-t border-foreground/10" />
         </div>
@@ -200,53 +221,56 @@ function Index() {
           className="fixed z-30 pointer-events-none w-56 h-40 md:w-72 md:h-52 overflow-hidden rounded-sm float-img"
           style={{ left: cursor.x + 28, top: cursor.y - 100 }}
         >
-          <img src={hoveredProject.img} alt="" className="w-full h-full object-cover" />
+          <img src={hoveredProject.thumbnail} alt="" className="w-full h-full object-cover" />
         </div>
       )}
 
       <div className="border-t border-foreground/10" />
 
-      {/* ABOUT + SKILLS */}
-      <section id="skills" className="px-8 md:px-12 py-20">
-        <div className="grid md:grid-cols-2 gap-16">
-          {/* About */}
-          <div>
-            <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">About</p>
-            <div className="flex gap-5 items-start mb-8">
-              <img src={bust} alt="Balogun Jeremiah" className="w-20 h-20 object-cover rounded-full grayscale shrink-0" />
-              <div>
-                <h2 className="font-display font-bold text-2xl md:text-3xl leading-tight mb-4">
-                  Product designer<br />from Lagos
-                </h2>
-                <p className="text-foreground/50 text-sm leading-relaxed">
-                  I'm dedicated to crafting websites and digital products that bring your idea to life. With 4+ years of experience, I blend creativity with technical expertise to deliver purposeful, delightful experiences.
-                </p>
+      {/* SERVICES */}
+      <section id="services" className="px-8 md:px-12 py-20">
+        <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">What I Do</p>
+        <div>
+          {services.map((s) => (
+            <div
+              key={s.n}
+              className="group flex gap-6 md:gap-12 py-7 border-t border-foreground/10 hover:border-foreground/25 transition-all duration-300"
+            >
+              <span className="text-foreground/20 text-xs pt-1.5 w-6 shrink-0">{s.n}</span>
+              <div className="flex-1 md:flex items-start justify-between gap-12">
+                <h3 className="font-display font-bold text-2xl md:text-3xl mb-2 md:mb-0 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
+                  {s.title}
+                </h3>
+                <p className="text-foreground/40 text-sm leading-relaxed max-w-md md:pt-1">{s.desc}</p>
               </div>
             </div>
-          </div>
+          ))}
+          <div className="border-t border-foreground/10" />
+        </div>
+      </section>
 
-          {/* Skills */}
-          <div>
-            <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">Skills & Tools</p>
-            <div>
-              {skills.map((s) => (
-                <div
-                  key={s.name}
-                  className="flex items-center gap-4 py-4 border-t border-foreground/10 hover:border-foreground/25 transition-colors group"
-                >
-                  <img src={s.icon} alt={s.name} className="w-5 h-5 object-contain opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />
-                  <div className="flex-1">
-                    <span className="font-display font-semibold text-lg group-hover:translate-x-1 transition-transform duration-200 inline-block">
-                      {s.name}
-                    </span>
-                    <span className="text-foreground/30 text-xs ml-3">{s.desc}</span>
-                  </div>
-                  <span className="text-foreground/30 text-xs tabular-nums">{s.pct}%</span>
-                </div>
-              ))}
-              <div className="border-t border-foreground/10" />
+      <div className="border-t border-foreground/10" />
+
+      {/* SKILLS */}
+      <section id="skills" className="px-8 md:px-12 py-20">
+        <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">Skills & Tools</p>
+        <div>
+          {skills.map((s) => (
+            <div
+              key={s.name}
+              className="flex items-center gap-4 py-4 border-t border-foreground/10 hover:border-foreground/25 transition-colors group"
+            >
+              <img src={s.icon} alt={s.name} className="w-5 h-5 object-contain opacity-50 group-hover:opacity-100 transition-opacity shrink-0" />
+              <div className="flex-1">
+                <span className="font-display font-semibold text-lg group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                  {s.name}
+                </span>
+                <span className="text-foreground/30 text-xs ml-3">{s.desc}</span>
+              </div>
+              <span className="text-foreground/25 text-xs tabular-nums">{s.pct}%</span>
             </div>
-          </div>
+          ))}
+          <div className="border-t border-foreground/10" />
         </div>
       </section>
 
@@ -263,9 +287,7 @@ function Index() {
             >
               <span className="text-foreground/20 text-xs pt-2 w-6 shrink-0">{p.n}</span>
               <div className="flex-1 md:flex items-start justify-between gap-12">
-                <h3
-                  className="font-display font-bold text-fluid-process mb-2 md:mb-0 group-hover:translate-x-1 transition-transform duration-300 shrink-0"
-                >
+                <h3 className="font-display font-bold text-fluid-process mb-2 md:mb-0 group-hover:translate-x-1 transition-transform duration-300 shrink-0">
                   {p.t}
                 </h3>
                 <p className="text-foreground/40 text-sm leading-relaxed max-w-md md:pt-1">{p.d}</p>
@@ -315,7 +337,9 @@ function Index() {
           </a>
           <div className="flex gap-8 text-xs text-foreground/30 tracking-wide">
             {socials.map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors uppercase tracking-widest">{s.label}</a>
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors uppercase tracking-widest">
+                {s.label}
+              </a>
             ))}
           </div>
         </div>
