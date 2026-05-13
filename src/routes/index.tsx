@@ -32,12 +32,12 @@ const projects = [
 ];
 
 const skills = [
-  { name: "Framer", desc: "No-code website builder", pct: 90 },
-  { name: "Photoshop", desc: "Visual design & retouching", pct: 93 },
-  { name: "Figma", desc: "Interface & prototyping", pct: 90 },
-  { name: "After Effects", desc: "Motion design", pct: 50 },
-  { name: "Rive", desc: "Interactive animation", pct: 30 },
-  { name: "React", desc: "Front-end development", pct: 90 },
+  { name: "Framer", desc: "No-code website builder", pct: 90, icon: "https://cdn.simpleicons.org/framer/ffffff" },
+  { name: "Photoshop", desc: "Visual design & retouching", pct: 93, icon: "https://cdn.simpleicons.org/adobephotoshop/ffffff" },
+  { name: "Figma", desc: "Interface & prototyping", pct: 90, icon: "https://cdn.simpleicons.org/figma/ffffff" },
+  { name: "After Effects", desc: "Motion design", pct: 50, icon: "https://cdn.simpleicons.org/adobeaftereffects/ffffff" },
+  { name: "Rive", desc: "Interactive animation", pct: 30, icon: "https://cdn.simpleicons.org/rive/ffffff" },
+  { name: "React", desc: "Front-end development", pct: 90, icon: "https://cdn.simpleicons.org/react/ffffff" },
 ];
 
 const process = [
@@ -65,18 +65,12 @@ function Index() {
 
       {/* Custom cursor */}
       <div
-        className="fixed z-[9999] pointer-events-none rounded-full border border-foreground/40 transition-all duration-150 ease-out"
-        style={{
-          left: cursor.x,
-          top: cursor.y,
-          width: cursorLarge ? 64 : 20,
-          height: cursorLarge ? 64 : 20,
-          transform: "translate(-50%, -50%)",
-        }}
+        className={`fixed z-[9999] pointer-events-none rounded-full border border-foreground/40 cursor-ring ${cursorLarge ? "cursor-ring-lg" : ""}`}
+        style={{ left: cursor.x, top: cursor.y }}
       />
       <div
-        className="fixed z-[9999] pointer-events-none w-1.5 h-1.5 rounded-full bg-foreground"
-        style={{ left: cursor.x, top: cursor.y, transform: "translate(-50%, -50%)" }}
+        className="fixed z-[9999] pointer-events-none w-1.5 h-1.5 rounded-full bg-foreground cursor-dot"
+        style={{ left: cursor.x, top: cursor.y }}
       />
 
       {/* Menu overlay */}
@@ -125,6 +119,7 @@ function Index() {
           <span>2021 — Present</span>
         </div>
         <button
+          type="button"
           onClick={() => setMenuOpen((v) => !v)}
           onMouseEnter={() => setCursorLarge(true)}
           onMouseLeave={() => setCursorLarge(false)}
@@ -140,10 +135,7 @@ function Index() {
           <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">
             UI/UX Designer · Lagos, Nigeria · 2021—Present
           </p>
-          <h1
-            className="font-display font-bold leading-[0.88] tracking-tighter"
-            style={{ fontSize: "clamp(3.5rem, 14vw, 14rem)" }}
-          >
+          <h1 className="font-display font-bold leading-[0.88] tracking-tighter text-fluid-hero">
             <span className="block">Balogun</span>
             <span className="block text-foreground/25">Jeremiah</span>
           </h1>
@@ -183,10 +175,7 @@ function Index() {
               onMouseLeave={() => { setHoveredProject(null); setCursorLarge(false); }}
             >
               <span className="text-foreground/25 text-xs w-6 shrink-0">{p.n}</span>
-              <h3
-                className="font-display font-bold flex-1 group-hover:translate-x-2 transition-transform duration-300"
-                style={{ fontSize: "clamp(1.5rem, 3.5vw, 3rem)" }}
-              >
+              <h3 className="font-display font-bold flex-1 text-fluid-project group-hover:translate-x-2 transition-transform duration-300">
                 {p.title}
               </h3>
               <span className="hidden md:block text-foreground/30 text-xs tracking-wide shrink-0">{p.tag}</span>
@@ -201,8 +190,8 @@ function Index() {
       {/* Floating project image follows cursor */}
       {hoveredProject && (
         <div
-          className="fixed z-30 pointer-events-none w-56 h-40 md:w-72 md:h-52 overflow-hidden rounded-sm"
-          style={{ left: cursor.x + 28, top: cursor.y - 100, transition: "left 0.08s, top 0.08s" }}
+          className="fixed z-30 pointer-events-none w-56 h-40 md:w-72 md:h-52 overflow-hidden rounded-sm float-img"
+          style={{ left: cursor.x + 28, top: cursor.y - 100 }}
         >
           <img src={hoveredProject.img} alt="" className="w-full h-full object-cover" />
         </div>
@@ -236,9 +225,10 @@ function Index() {
               {skills.map((s) => (
                 <div
                   key={s.name}
-                  className="flex items-center justify-between py-4 border-t border-foreground/10 hover:border-foreground/25 transition-colors group"
+                  className="flex items-center gap-4 py-4 border-t border-foreground/10 hover:border-foreground/25 transition-colors group"
                 >
-                  <div>
+                  <img src={s.icon} alt={s.name} className="w-5 h-5 object-contain opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />
+                  <div className="flex-1">
                     <span className="font-display font-semibold text-lg group-hover:translate-x-1 transition-transform duration-200 inline-block">
                       {s.name}
                     </span>
@@ -267,8 +257,7 @@ function Index() {
               <span className="text-foreground/20 text-xs pt-2 w-6 shrink-0">{p.n}</span>
               <div className="flex-1 md:flex items-start justify-between gap-12">
                 <h3
-                  className="font-display font-bold mb-2 md:mb-0 group-hover:translate-x-1 transition-transform duration-300 shrink-0"
-                  style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}
+                  className="font-display font-bold text-fluid-process mb-2 md:mb-0 group-hover:translate-x-1 transition-transform duration-300 shrink-0"
                 >
                   {p.t}
                 </h3>
@@ -306,8 +295,7 @@ function Index() {
           href="mailto:Balogun.jeremiah8@gmail.com"
           onMouseEnter={() => setCursorLarge(true)}
           onMouseLeave={() => setCursorLarge(false)}
-          className="block font-display font-bold leading-none tracking-tighter hover:text-foreground/30 transition-colors duration-300"
-          style={{ fontSize: "clamp(3rem, 10vw, 10rem)" }}
+          className="block font-display font-bold leading-none tracking-tighter text-fluid-cta hover:text-foreground/30 transition-colors duration-300"
         >
           LET'S TALK
         </a>
