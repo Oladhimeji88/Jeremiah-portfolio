@@ -98,6 +98,7 @@
   --sidebar-border: oklch(0.25 0 0);
   --sidebar-ring: oklch(0.7 0 0);
 
+  --logo-blue: #4ABADC;
   --gradient-marble: linear-gradient(180deg, oklch(0.08 0 0) 0%, oklch(0.11 0 0) 100%);
   --gradient-gold: linear-gradient(135deg, oklch(0.97 0 0), oklch(0.6 0 0));
   --shadow-marble: 0 30px 60px -20px oklch(0 0 0 / 0.6);
@@ -143,6 +144,10 @@
   .cursor-dot { transform: translate(-50%, -50%); }
   .float-img { transition: left 0.08s linear, top 0.08s linear; }
   .cursor-grab { cursor: grab; }
+  .btn-logo-blue {
+    background: var(--logo-blue);
+    border: 1px solid var(--logo-blue);
+  }
   .cursor-grabbing { cursor: grabbing; }
   .mask-fade-top {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);

@@ -198,7 +198,7 @@ function AboutPage() {
           <a
             href={resumeUrl}
             download="Balogun Jeremiah Resume.pdf"
-            className="inline-flex items-center gap-4 border border-foreground/20 px-6 py-3 text-xs tracking-widest uppercase hover:border-foreground hover:text-foreground text-foreground/60 transition-all duration-300"
+            className="inline-flex items-center gap-4 px-6 py-3 text-xs tracking-widest uppercase transition-all duration-300 text-white font-medium btn-logo-blue"
           >
             Download CV <span>↓</span>
           </a>
