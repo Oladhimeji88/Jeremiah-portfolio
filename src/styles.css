@@ -142,6 +142,10 @@
   .cursor-ring-lg { width: 64px; height: 64px; }
   .cursor-dot { transform: translate(-50%, -50%); }
   .float-img { transition: left 0.08s linear, top 0.08s linear; }
+  .mask-fade-top {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
+  }
 
   .text-fluid-hero   { font-size: clamp(3.5rem, 14vw, 14rem); }
   .text-fluid-project { font-size: clamp(1.5rem, 3.5vw, 3rem); }

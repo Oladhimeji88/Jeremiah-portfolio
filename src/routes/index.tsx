@@ -446,17 +446,27 @@ function Index() {
       <div className="border-t border-foreground/10" />
 
       {/* CTA */}
-      <section id="contact" className="px-8 md:px-12 py-20">
+      <section id="contact" className="relative px-8 md:px-12 pt-20 pb-0 overflow-hidden">
         <p className="text-foreground/40 text-xs tracking-widest uppercase mb-8">Get in touch</p>
+
+        {/* Face image — right side, bleeds into bottom */}
+        <div className="absolute right-0 bottom-0 w-[38%] hidden md:block pointer-events-none select-none">
+          <img
+            src={faceBroken}
+            alt=""
+            className="w-full object-contain object-bottom mask-fade-top"
+          />
+        </div>
+
         <a
           href="mailto:Balogun.jeremiah8@gmail.com"
           onMouseEnter={() => setCursorLarge(true)}
           onMouseLeave={() => setCursorLarge(false)}
-          className="block font-display font-bold leading-none tracking-tighter text-fluid-cta hover:text-foreground/30 transition-colors duration-300"
+          className="block font-display font-bold leading-none tracking-tighter text-fluid-cta hover:text-foreground/30 transition-colors duration-300 relative z-10 md:max-w-[60%]"
         >
           LET'S TALK
         </a>
-        <div className="mt-12 flex flex-col md:flex-row md:items-center justify-between gap-6 border-t border-foreground/10 pt-8">
+        <div className="mt-12 mb-0 flex flex-col md:flex-row md:items-center justify-between gap-6 border-t border-foreground/10 pt-8 pb-20 relative z-10">
           <a
             href="mailto:Balogun.Jeremiah8@gmail.com"
             className="text-foreground/50 hover:text-foreground transition-colors text-sm"
