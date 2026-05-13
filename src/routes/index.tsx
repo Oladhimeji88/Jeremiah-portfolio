@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import logo from "@/assets/jeremiah/logo.png";
 import bust from "@/assets/jeremiah/bust.png";
 import testimonialImg from "@/assets/jeremiah/testimonial.jpg";
+import statueReading from "@/assets/jeremiah/Statue reading.png";
 import { projects } from "@/lib/projects";
 
 export const Route = createFileRoute("/")({
@@ -209,16 +210,25 @@ function Index() {
       </header>
 
       {/* HERO */}
-      <section id="top" className="min-h-screen flex flex-col justify-end px-8 md:px-12 pb-12 pt-28">
-        <div className="w-full">
+      <section id="top" className="min-h-screen flex flex-col justify-end px-8 md:px-12 pb-12 pt-28 relative overflow-hidden">
+        {/* Statue image — right side */}
+        <div className="absolute right-0 bottom-0 top-0 w-[45%] hidden md:block pointer-events-none">
+          <img
+            src={statueReading}
+            alt=""
+            className="absolute bottom-0 right-0 h-full max-h-[90vh] w-auto object-contain object-bottom"
+          />
+        </div>
+
+        <div className="w-full relative z-10">
           <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">
             UI/UX Designer · Lagos, Nigeria · 2021—Present
           </p>
-          <h1 className="font-display font-bold leading-[0.88] tracking-tighter text-fluid-hero">
+          <h1 className="font-display font-bold leading-[0.88] tracking-tighter text-fluid-hero md:max-w-[55%]">
             <span className="block">Balogun</span>
             <span className="block text-foreground/25">Jeremiah</span>
           </h1>
-          <div className="mt-10 flex flex-col md:flex-row md:items-end justify-between gap-8 border-t border-foreground/10 pt-8">
+          <div className="mt-10 flex flex-col md:flex-row md:items-end justify-between gap-8 border-t border-foreground/10 pt-8 md:max-w-[55%]">
             <p className="max-w-sm text-foreground/50 text-base leading-relaxed">
               Senior Product Designer. I help businesses move from confusion to clarity and users from frustration to flow.
             </p>
