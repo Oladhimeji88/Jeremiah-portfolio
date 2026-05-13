@@ -4,6 +4,7 @@ import logo from "@/assets/jeremiah/logo.png";
 import bust from "@/assets/jeremiah/bust.png";
 import testimonialImg from "@/assets/jeremiah/testimonial.jpg";
 import statueReading from "@/assets/jeremiah/Statue reading.png";
+import faceBroken from "@/assets/jeremiah/face broken.png";
 import { projects } from "@/lib/projects";
 
 export const Route = createFileRoute("/")({
