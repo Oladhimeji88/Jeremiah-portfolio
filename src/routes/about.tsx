@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import bust from "@/assets/jeremiah/bust.png";
+import jeremiah from "@/assets/jeremiah/Jeremiah.png";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -117,21 +118,41 @@ function AboutPage() {
       {/* HERO */}
       <section className="pt-36 pb-16 px-8 md:px-12">
         <p className="text-foreground/40 text-xs tracking-widest uppercase mb-8">Senior Product Designer · Lagos, Nigeria</p>
-        <h1 className="font-display font-bold text-fluid-hero leading-[0.88] tracking-tighter mb-12">
-          <span className="block">Designing</span>
-          <span className="block text-foreground/25">Systems</span>
-          <span className="block">That Scale</span>
-        </h1>
-        <div className="grid md:grid-cols-[auto_1fr] gap-10 items-start max-w-4xl">
-          <img src={bust} alt="Balogun Jeremiah" className="w-28 h-28 rounded-full object-cover grayscale shrink-0" />
-          <div>
-            <p className="text-lg md:text-xl text-foreground/70 leading-relaxed mb-4">
-              I didn't start with design. I started with understanding how things work. With a background in Physical Science, I developed a natural way of thinking in <span className="text-foreground font-medium">systems, structure, and cause-effect relationships</span>.
-            </p>
-            <p className="text-lg md:text-xl text-foreground/70 leading-relaxed">
-              That mindset led me into product design, where I now focus on solving complex problems and turning them into simple, intuitive experiences. Today, I design products across <span className="text-foreground font-medium">SaaS, AI, and real-world service platforms</span>, helping businesses move from confusion to clarity and users from frustration to flow.
-            </p>
+
+        {/* Heading + floating portrait */}
+        <div className="relative mb-12">
+          <h1 className="font-display font-bold text-fluid-hero leading-[0.88] tracking-tighter">
+            <span className="block">Designing</span>
+            <span className="block text-foreground/25">Systems</span>
+            <span className="block">That Scale</span>
+          </h1>
+
+          {/* Floating circular portrait */}
+          <div className="absolute top-1/2 -translate-y-1/2 right-0 md:right-12 animate-float hidden md:block">
+            <img
+              src={jeremiah}
+              alt="Balogun Jeremiah"
+              className="w-48 h-48 rounded-full object-cover object-top grayscale border border-foreground/10 shadow-marble"
+            />
           </div>
+
+          {/* Mobile: portrait below heading */}
+          <div className="mt-8 flex justify-start animate-float md:hidden">
+            <img
+              src={jeremiah}
+              alt="Balogun Jeremiah"
+              className="w-32 h-32 rounded-full object-cover object-top grayscale border border-foreground/10"
+            />
+          </div>
+        </div>
+
+        <div className="max-w-2xl">
+          <p className="text-lg md:text-xl text-foreground/70 leading-relaxed mb-4">
+            I didn't start with design. I started with understanding how things work. With a background in Physical Science, I developed a natural way of thinking in <span className="text-foreground font-medium">systems, structure, and cause-effect relationships</span>.
+          </p>
+          <p className="text-lg md:text-xl text-foreground/70 leading-relaxed">
+            That mindset led me into product design, where I now focus on solving complex problems and turning them into simple, intuitive experiences. Today, I design products across <span className="text-foreground font-medium">SaaS, AI, and real-world service platforms</span>, helping businesses move from confusion to clarity and users from frustration to flow.
+          </p>
         </div>
       </section>
 

@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import logoUrl from "../assets/jeremiah/logo.png?url";
 
 function NotFoundComponent() {
   return (
@@ -82,10 +83,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: logoUrl, type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
