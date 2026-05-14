@@ -8,6 +8,9 @@ import statueReading from "@/assets/jeremiah/Statue reading.png";
 import faceBroken from "@/assets/jeremiah/face broken.png";
 import { projects } from "@/lib/projects";
 
+const graphicsModules = import.meta.glob<{ default: string }>("../assets/Graphics/*", { eager: true });
+const graphicsImages = Object.values(graphicsModules).map((m) => m.default);
+
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
@@ -206,6 +209,7 @@ function Index() {
           <nav className="space-y-1">
             {[
               { label: "Work", href: "#projects", route: null },
+              { label: "Graphics", href: "#graphics", route: null },
               { label: "About", href: null, route: "/about" },
               { label: "Services", href: "#services", route: null },
               { label: "Skills", href: "#skills", route: null },
@@ -366,6 +370,33 @@ function Index() {
           <img src={hoveredProject.thumbnail} alt="" className="w-full h-full object-cover" />
         </div>
       )}
+
+      <div className="border-t border-foreground/10" />
+
+      {/* GRAPHICS */}
+      <section id="graphics" className="px-8 md:px-12 py-20">
+        <div className="flex items-baseline justify-between mb-10">
+          <p className="text-foreground/40 text-xs tracking-widest uppercase">Graphics</p>
+          <p className="text-foreground/20 text-xs">{graphicsImages.length} works</p>
+        </div>
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-3">
+          {graphicsImages.map((src, i) => (
+            <div
+              key={i}
+              className="break-inside-avoid mb-3 overflow-hidden group cursor-pointer"
+              onMouseEnter={() => setCursorLarge(true)}
+              onMouseLeave={() => setCursorLarge(false)}
+            >
+              <img
+                src={src}
+                alt=""
+                loading="lazy"
+                className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
 
       <div className="border-t border-foreground/10" />
 
