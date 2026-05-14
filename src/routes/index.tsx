@@ -8,8 +8,6 @@ import statueReading from "@/assets/jeremiah/Statue reading.png";
 import faceBroken from "@/assets/jeremiah/face broken.png";
 import { projects } from "@/lib/projects";
 
-const graphicsModules = import.meta.glob<{ default: string }>("../assets/Graphics/*", { eager: true });
-const graphicsImages = Object.values(graphicsModules).map((m) => m.default);
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -209,7 +207,7 @@ function Index() {
           <nav className="space-y-1">
             {[
               { label: "Work", href: "#projects", route: null },
-              { label: "Graphics", href: "#graphics", route: null },
+              { label: "Graphics", href: null, route: "/graphics" },
               { label: "About", href: null, route: "/about" },
               { label: "Services", href: "#services", route: null },
               { label: "Skills", href: "#skills", route: null },
