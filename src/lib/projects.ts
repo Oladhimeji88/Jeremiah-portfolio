@@ -89,4 +89,17 @@ export const projects: Project[] = [
     process: [],
     liveUrl: undefined,
   },
+  {
+    id: "tapebox",
+    n: "06",
+    tag: "Website Design",
+    title: "TapeBox",
+    year: "2025",
+    thumbnail: "",
+    images: [],
+    description: "TapeBox is a logistics platform built around smarter delivery management — clean interfaces, intuitive flows, and a system designed to reduce friction for businesses handling shipments.",
+    services: ["UI/UX Design", "Website Design", "Branding", "Mobile Design"],
+    process: [],
+    liveUrl: "https://tapebox-chi.vercel.app/",
+  },
 ];
