@@ -371,33 +371,6 @@ function Index() {
 
       <div className="border-t border-foreground/10" />
 
-      {/* GRAPHICS */}
-      <section id="graphics" className="px-8 md:px-12 py-20">
-        <div className="flex items-baseline justify-between mb-10">
-          <p className="text-foreground/40 text-xs tracking-widest uppercase">Graphics</p>
-          <p className="text-foreground/20 text-xs">{graphicsImages.length} works</p>
-        </div>
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-3">
-          {graphicsImages.map((src, i) => (
-            <div
-              key={i}
-              className="break-inside-avoid mb-3 overflow-hidden group cursor-pointer"
-              onMouseEnter={() => setCursorLarge(true)}
-              onMouseLeave={() => setCursorLarge(false)}
-            >
-              <img
-                src={src}
-                alt=""
-                loading="lazy"
-                className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="border-t border-foreground/10" />
-
       {/* SERVICES */}
       <section id="services" className="px-8 md:px-12 py-20">
         <p className="text-foreground/40 text-xs tracking-widest uppercase mb-10">What I Do</p>
