@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SITE_URL, OG_IMAGE } from "@/lib/seo";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const graphicsModules = import.meta.glob<{ default: string }>("../assets/Graphics/*", { eager: true });
 const graphicsImages = Object.values(graphicsModules).map((m) => m.default);
+
+const SLIDE_DURATION = 4000;
 
 export const Route = createFileRoute("/graphics")({
   component: GraphicsPage,
@@ -26,29 +28,67 @@ export const Route = createFileRoute("/graphics")({
 function GraphicsPage() {
   const [cursor, setCursor] = useState({ x: -200, y: -200 });
   const [cursorLarge, setCursorLarge] = useState(false);
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [slideIdx, setSlideIdx] = useState<number | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const progressKey = useRef(0);
 
+  const isOpen = slideIdx !== null;
+
+  const goTo = (idx: number) => {
+    progressKey.current += 1;
+    setSlideIdx(idx);
+  };
+
+  const prev = () => {
+    if (slideIdx === null) return;
+    goTo(slideIdx > 0 ? slideIdx - 1 : graphicsImages.length - 1);
+  };
+
+  const next = () => {
+    if (slideIdx === null) return;
+    goTo(slideIdx < graphicsImages.length - 1 ? slideIdx + 1 : 0);
+  };
+
+  const open = (idx: number) => {
+    progressKey.current += 1;
+    setSlideIdx(idx);
+    setPlaying(false);
+  };
+
+  const close = () => {
+    setSlideIdx(null);
+    setPlaying(false);
+  };
+
+  // Autoplay
+  useEffect(() => {
+    if (!playing || slideIdx === null) return;
+    const id = setInterval(() => {
+      progressKey.current += 1;
+      setSlideIdx((i) => (i === null ? 0 : i < graphicsImages.length - 1 ? i + 1 : 0));
+    }, SLIDE_DURATION);
+    return () => clearInterval(id);
+  }, [playing, slideIdx]);
+
+  // Cursor tracking
   useEffect(() => {
     const onMove = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
+  // Keyboard navigation
   useEffect(() => {
+    if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightbox(null);
-      if (e.key === "ArrowRight" && lightbox) {
-        const idx = graphicsImages.indexOf(lightbox);
-        if (idx < graphicsImages.length - 1) setLightbox(graphicsImages[idx + 1]);
-      }
-      if (e.key === "ArrowLeft" && lightbox) {
-        const idx = graphicsImages.indexOf(lightbox);
-        if (idx > 0) setLightbox(graphicsImages[idx - 1]);
-      }
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === " ") { e.preventDefault(); setPlaying((p) => !p); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox]);
+  }, [isOpen, slideIdx]);
 
   return (
     <div className="min-h-screen bg-background text-foreground no-cursor overflow-x-hidden">
@@ -85,7 +125,7 @@ function GraphicsPage() {
           <p className="text-foreground/20 text-xs shrink-0 pb-2">{graphicsImages.length} works</p>
         </div>
         <p className="mt-8 max-w-md text-foreground/50 text-base leading-relaxed">
-          Posters, flyers, brand assets, social media graphics, and marketing collateral. Print and digital, all designed to communicate with clarity and visual impact.
+          Posters, flyers, brand assets, social media graphics, and marketing collateral. Click any image to open the slideshow.
         </p>
       </section>
 
@@ -96,7 +136,7 @@ function GraphicsPage() {
             <div
               key={i}
               className="break-inside-avoid mb-3 overflow-hidden group cursor-pointer"
-              onClick={() => setLightbox(src)}
+              onClick={() => open(i)}
               onMouseEnter={() => setCursorLarge(true)}
               onMouseLeave={() => setCursorLarge(false)}
             >
@@ -111,52 +151,127 @@ function GraphicsPage() {
         </div>
       </section>
 
-      {/* LIGHTBOX */}
-      {lightbox && (
-        <div
-          className="fixed inset-0 z-[9998] bg-background/95 backdrop-blur-sm flex items-center justify-center p-8"
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            type="button"
-            onClick={() => setLightbox(null)}
-            className="absolute top-8 right-8 text-xs tracking-widest uppercase text-foreground/50 hover:text-foreground transition-colors z-10"
-          >
-            Close
-          </button>
+      {/* SLIDESHOW LIGHTBOX */}
+      {isOpen && slideIdx !== null && (
+        <div className="fixed inset-0 z-9998 bg-black flex flex-col select-none">
 
-          {/* Prev */}
-          {graphicsImages.indexOf(lightbox) > 0 && (
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-6 py-4 shrink-0">
+            <span className="text-white/40 text-xs tabular-nums tracking-widest">
+              {slideIdx + 1} <span className="text-white/20">/</span> {graphicsImages.length}
+            </span>
             <button
               type="button"
-              onClick={(e) => { e.stopPropagation(); setLightbox(graphicsImages[graphicsImages.indexOf(lightbox) - 1]); }}
-              className="absolute left-8 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground transition-colors text-2xl z-10"
+              onClick={close}
+              className="text-white/50 hover:text-white transition-colors text-xs tracking-widest uppercase"
+            >
+              Close ×
+            </button>
+          </div>
+
+          {/* Progress bar */}
+          <div className="h-px w-full bg-white/10 shrink-0 overflow-hidden">
+            {playing && (
+              <div
+                key={`${progressKey.current}-${slideIdx}`}
+                className="h-full w-full bg-white/60 animate-slide-progress"
+              />
+            )}
+          </div>
+
+          {/* Image area */}
+          <div className="flex-1 flex items-center justify-center relative overflow-hidden px-16 py-4">
+            {/* Prev button */}
+            <button
+              type="button"
+              onClick={prev}
+              onMouseEnter={() => setCursorLarge(true)}
+              onMouseLeave={() => setCursorLarge(false)}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center text-white/40 hover:text-white transition-colors text-xl"
             >
               ←
             </button>
-          )}
 
-          <img
-            src={lightbox}
-            alt=""
-            className="max-w-full max-h-[85vh] object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
+            <img
+              key={slideIdx}
+              src={graphicsImages[slideIdx]}
+              alt=""
+              className="max-w-full max-h-full object-contain animate-fade-in"
+            />
 
-          {/* Next */}
-          {graphicsImages.indexOf(lightbox) < graphicsImages.length - 1 && (
+            {/* Next button */}
             <button
               type="button"
-              onClick={(e) => { e.stopPropagation(); setLightbox(graphicsImages[graphicsImages.indexOf(lightbox) + 1]); }}
-              className="absolute right-8 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground transition-colors text-2xl z-10"
+              onClick={next}
+              onMouseEnter={() => setCursorLarge(true)}
+              onMouseLeave={() => setCursorLarge(false)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center text-white/40 hover:text-white transition-colors text-xl"
             >
               →
             </button>
-          )}
+          </div>
 
-          <p className="absolute bottom-8 left-1/2 -translate-x-1/2 text-foreground/30 text-xs tabular-nums">
-            {graphicsImages.indexOf(lightbox) + 1} / {graphicsImages.length}
-          </p>
+          {/* Bottom controls */}
+          <div className="shrink-0 flex items-center justify-center gap-6 py-5">
+            {/* Prev */}
+            <button
+              type="button"
+              onClick={prev}
+              onMouseEnter={() => setCursorLarge(true)}
+              onMouseLeave={() => setCursorLarge(false)}
+              className="text-white/40 hover:text-white transition-colors text-xs tracking-widest uppercase"
+            >
+              ← Prev
+            </button>
+
+            {/* Play / Pause */}
+            <button
+              type="button"
+              onClick={() => setPlaying((p) => !p)}
+              onMouseEnter={() => setCursorLarge(true)}
+              onMouseLeave={() => setCursorLarge(false)}
+              className="w-12 h-12 rounded-full border border-white/20 hover:border-white/60 flex items-center justify-center text-white/70 hover:text-white transition-all duration-200"
+            >
+              {playing ? (
+                /* Pause icon */
+                <span className="flex gap-1">
+                  <span className="w-0.75 h-4 bg-current rounded-sm" />
+                  <span className="w-0.75 h-4 bg-current rounded-sm" />
+                </span>
+              ) : (
+                /* Play icon */
+                <span className="ml-0.5 border-y-[6px] border-y-transparent border-l-10 border-l-current" />
+              )}
+            </button>
+
+            {/* Next */}
+            <button
+              type="button"
+              onClick={next}
+              onMouseEnter={() => setCursorLarge(true)}
+              onMouseLeave={() => setCursorLarge(false)}
+              className="text-white/40 hover:text-white transition-colors text-xs tracking-widest uppercase"
+            >
+              Next →
+            </button>
+          </div>
+
+          {/* Dot strip */}
+          <div className="shrink-0 flex items-center justify-center gap-1.5 pb-5 overflow-hidden px-8">
+            {graphicsImages.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Go to image ${i + 1}`}
+                onClick={() => goTo(i)}
+                className={`rounded-full transition-all duration-200 ${
+                  i === slideIdx
+                    ? "w-4 h-1.5 bg-white"
+                    : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       )}
 
