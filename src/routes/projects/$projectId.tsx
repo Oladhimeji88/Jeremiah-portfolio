@@ -111,15 +111,17 @@ function ProjectPage() {
       </section>
 
       {/* MAIN IMAGE */}
-      <div className="px-8 md:px-12">
-        <div className="w-full overflow-hidden rounded-sm bg-foreground/5">
-          <img
-            src={project.thumbnail}
-            alt={project.title}
-            className="w-full max-h-[80vh] object-cover"
-          />
+      {project.thumbnail && (
+        <div className="px-8 md:px-12">
+          <div className="w-full overflow-hidden rounded-sm bg-foreground/5">
+            <img
+              src={project.thumbnail}
+              alt={project.title}
+              className="w-full max-h-[80vh] object-cover"
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="border-t border-foreground/10 mt-20" />
 
