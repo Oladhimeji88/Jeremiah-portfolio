@@ -33,7 +33,7 @@ export const videos: VideoEntry[] = [
   { title: "Logo reveal", youtubeUrl: "https://youtube.com/shorts/QDnBY8wqlF8?feature=share" },
   { title: "Jesus on a throne", youtubeUrl: "https://youtu.be/YPJpBkXzI-M" },
   { title: "Tol Ads", youtubeUrl: "https://youtube.com/shorts/8UkO9v1LXao" },
-  { title: "Content Core", youtubeUrl: "" },
+  { title: "NativeTalk", youtubeUrl: "https://youtu.be/j-7zUTZfRKo" },
   { title: "Planet Capital", youtubeUrl: "https://youtu.be/9Luw-hpJBMQ" },
   { title: "Wedding trailer", youtubeUrl: "https://youtu.be/EU5fGQEXezY" },
   { title: "Test", youtubeUrl: "" },
