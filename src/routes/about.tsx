@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SITE_URL, OG_IMAGE } from "@/lib/seo";
 import { useEffect, useRef, useState } from "react";
 import bust from "@/assets/jeremiah/bust.png";
 import jeremiah from "@/assets/jeremiah/Jeremiah.png";
@@ -9,9 +10,17 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About — Balogun Jeremiah" },
-      { name: "description", content: "Senior Product Designer designing systems that scale. Lagos, Nigeria." },
+      { title: "About — Balogun Jeremiah | Senior Product Designer" },
+      { name: "description", content: "Background in Physical Science turned Product Designer. Designing systems that scale across SaaS, AI, and real-world platforms. Based in Lagos, Nigeria." },
+      { name: "keywords", content: "Balogun Jeremiah About, Product Designer Lagos, UI UX Designer Nigeria, Design Systems, SaaS Designer" },
+      { property: "og:title", content: "About — Balogun Jeremiah | Senior Product Designer" },
+      { property: "og:description", content: "Background in Physical Science turned Product Designer. Designing systems that scale across SaaS, AI, and real-world platforms." },
+      { property: "og:url", content: `${SITE_URL}/about` },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:title", content: "About — Balogun Jeremiah | Senior Product Designer" },
+      { name: "twitter:description", content: "Background in Physical Science turned Product Designer. Designing systems that scale across SaaS, AI, and real-world platforms." },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/about` }],
   }),
 });
 

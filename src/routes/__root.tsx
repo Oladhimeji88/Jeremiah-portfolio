@@ -4,7 +4,9 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  HeadContent,
 } from "@tanstack/react-router";
+import { SITE_NAME, SITE_URL, DEFAULT_DESCRIPTION, OG_IMAGE } from "../lib/seo";
 import { useEffect, useState } from "react";
 
 import logoUrl from "../assets/jeremiah/logo.png";
@@ -68,6 +70,21 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  head: () => ({
+    meta: [
+      { property: "og:type", content: "website" },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:url", content: SITE_URL },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
+      { name: "robots", content: "index, follow" },
+      { name: "author", content: SITE_NAME },
+      { name: "description", content: DEFAULT_DESCRIPTION },
+    ],
+  }),
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
@@ -110,6 +127,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <HeadContent />
       <Preloader />
       <Outlet />
     </QueryClientProvider>

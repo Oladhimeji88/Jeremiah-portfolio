@@ -1,9 +1,31 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { projects } from "@/lib/projects";
+import { SITE_URL, OG_IMAGE, SITE_NAME } from "@/lib/seo";
 
 export const Route = createFileRoute("/projects/$projectId")({
   component: ProjectPage,
+  head: ({ params }) => {
+    const project = projects.find((p) => p.id === params.projectId);
+    if (!project) return {};
+    const title = `${project.title} — ${SITE_NAME}`;
+    const description = `${project.tag} · ${project.year}. ${project.description !== "Details coming soon." ? project.description : `A ${project.tag.toLowerCase()} project by Balogun Jeremiah.`}`;
+    const url = `${SITE_URL}/projects/${project.id}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { name: "keywords", content: `${project.services.join(", ")}, Balogun Jeremiah, UI UX Design Portfolio` },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { property: "og:image", content: OG_IMAGE },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: url }],
+    };
+  },
 });
 
 function ProjectPage() {

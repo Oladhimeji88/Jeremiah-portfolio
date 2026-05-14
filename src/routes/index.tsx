@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SITE_URL, OG_IMAGE } from "@/lib/seo";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/jeremiah/logo.png";
 import bust from "@/assets/jeremiah/bust.png";
@@ -15,9 +16,17 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Balogun Jeremiah — UI/UX designer from Lagos, Nigeria. Turning your ideas into realities through thoughtful interfaces and digital products.",
+          "Senior Product Designer based in Lagos, Nigeria. I help businesses move from confusion to clarity and users from frustration to flow. Specialising in UI/UX, SaaS, AI products, and brand systems.",
       },
+      { name: "keywords", content: "UI UX Designer, Product Designer, Lagos Nigeria, SaaS Design, Figma, Framer, Balogun Jeremiah, UI Designer Nigeria, Brand Design" },
+      { property: "og:title", content: "Balogun Jeremiah — UI/UX Designer | Lagos, Nigeria" },
+      { property: "og:description", content: "Senior Product Designer based in Lagos, Nigeria. Specialising in UI/UX, SaaS, AI products, and brand systems that scale." },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:title", content: "Balogun Jeremiah — UI/UX Designer | Lagos, Nigeria" },
+      { name: "twitter:description", content: "Senior Product Designer based in Lagos, Nigeria. Specialising in UI/UX, SaaS, AI products, and brand systems that scale." },
     ],
+    links: [{ rel: "canonical", href: SITE_URL }],
   }),
 });
 
