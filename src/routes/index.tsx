@@ -265,8 +265,6 @@ function Index() {
             <span className="w-1.5 h-1.5 rounded-full bg-foreground/60 inline-block animate-pulse" />
             Available for Freelance
           </span>
-          <span className="text-foreground/20">·</span>
-          <span>2021 — Present</span>
         </div>
         <button
           type="button"
