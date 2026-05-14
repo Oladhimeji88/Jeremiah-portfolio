@@ -282,7 +282,6 @@ function Index() {
         {/* Statue image — right side, draggable + tiltable */}
         <div
           ref={statueContainerRef}
-          className="absolute right-0 bottom-0 top-0 w-[45%] hidden md:block"
           className="absolute right-0 bottom-0 top-0 w-[45%] hidden md:block cursor-grab"
           onMouseDown={handleStatueMouseDown}
           onMouseMove={statueTilt.onMouseMove}
