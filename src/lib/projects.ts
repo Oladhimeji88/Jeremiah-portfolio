@@ -15,7 +15,7 @@ export type Project = {
   tag: string;
   title: string;
   year: string;
-  thumbnail: string;
+  thumbnail?: string;
   images: string[];
   description: string;
   services: string[];

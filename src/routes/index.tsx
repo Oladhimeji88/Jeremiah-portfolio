@@ -358,7 +358,7 @@ function Index() {
       </section>
 
       {/* Floating project image follows cursor */}
-      {hoveredProject && (
+      {hoveredProject?.thumbnail && (
         <div
           className="fixed z-30 pointer-events-none w-56 h-40 md:w-72 md:h-52 overflow-hidden rounded-sm float-img"
           style={{ left: cursor.x + 28, top: cursor.y - 100 }}
