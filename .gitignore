@@ -20,6 +20,9 @@ dist-ssr
 .wrangler/
 .dev.vars
 
+# Large video/media files — hosted on YouTube instead
+src/assets/videos/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

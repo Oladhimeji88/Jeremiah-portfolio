@@ -208,9 +208,9 @@ function Index() {
             {[
               { label: "Work", href: "#projects", route: null },
               { label: "Graphics", href: null, route: "/graphics" },
+              { label: "Motion", href: null, route: "/motion" },
               { label: "About", href: null, route: "/about" },
               { label: "Services", href: "#services", route: null },
-              { label: "Skills", href: "#skills", route: null },
               { label: "Contact", href: "#contact", route: null },
             ].map(({ label, href, route }) =>
               route ? (
