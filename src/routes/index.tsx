@@ -259,8 +259,6 @@ function Index() {
           <span className="font-display text-sm tracking-wide">Balogun Jeremiah</span>
         </a>
         <div className="hidden md:flex items-center gap-6 text-xs text-foreground/40 tracking-wide">
-          <span>Lagos, Nigeria</span>
-          <span className="text-foreground/20">·</span>
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-foreground/60 inline-block animate-pulse" />
             Available for Freelance
