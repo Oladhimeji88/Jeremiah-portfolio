@@ -3,6 +3,10 @@ import pNetflix from "@/assets/jeremiah/p-netflix.png";
 import pMoniepoint from "@/assets/jeremiah/p-moniepoint.png";
 import pLagrent from "@/assets/jeremiah/p-lagrent.png";
 import pCesado from "@/assets/jeremiah/p-cesado.png";
+import tapeboxHero from "@/assets/Tapebox/Hero section.png";
+import tapeboxScreenshot from "@/assets/Tapebox/Screenshot 2026-05-14 153901.png";
+import tapeboxMobile from "@/assets/Tapebox/mobile view hero section.png";
+import tapeboxVideo from "@/assets/Tapebox/tapebox landing page ui.mp4";
 
 export type ProjectProcess = {
   title: string;
@@ -16,6 +20,7 @@ export type Project = {
   title: string;
   year: string;
   thumbnail?: string;
+  video?: string;
   images: string[];
   description: string;
   services: string[];
@@ -95,11 +100,33 @@ export const projects: Project[] = [
     tag: "Website Design",
     title: "TapeBox",
     year: "2025",
-    thumbnail: undefined,
-    images: [],
+    thumbnail: tapeboxHero,
+    video: tapeboxVideo,
+    images: [tapeboxHero, tapeboxScreenshot, tapeboxMobile],
     description: "TapeBox is a logistics platform built around smarter delivery management — clean interfaces, intuitive flows, and a system designed to reduce friction for businesses handling shipments.",
     services: ["UI/UX Design", "Website Design", "Branding", "Mobile Design"],
-    process: [],
+    process: [
+      {
+        title: "Discovery & Research",
+        body: "Deep-dived into logistics pain points through stakeholder interviews and competitor analysis. Mapped the key frustrations delivery managers and businesses face — fragmented tracking, poor visibility, and clunky handoff flows.",
+      },
+      {
+        title: "Information Architecture",
+        body: "Structured the platform around three core user journeys: shipment creation, real-time tracking, and team management. Wireframes and user flow diagrams aligned the product vision before any visual decisions were made.",
+      },
+      {
+        title: "Visual Design System",
+        body: "Built a clean, data-forward design language — a restrained color palette, sharp typography, and a component library that scales across dashboard, mobile, and marketing surfaces without losing coherence.",
+      },
+      {
+        title: "Prototyping & Validation",
+        body: "Delivered high-fidelity interactive prototypes and ran usability sessions with logistics operators. Iterated on shipment status flows, notification patterns, and the onboarding experience based on real feedback.",
+      },
+      {
+        title: "Handoff & Implementation",
+        body: "Produced annotated design specs, exportable assets, and a design-to-dev handoff guide. Worked closely with the engineering team during build to ensure the live product matched design intent down to motion and spacing.",
+      },
+    ],
     liveUrl: "https://tapebox-chi.vercel.app/",
   },
 ];

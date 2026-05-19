@@ -110,8 +110,21 @@ function ProjectPage() {
         </div>
       </section>
 
-      {/* MAIN IMAGE */}
-      {project.thumbnail && (
+      {/* MAIN IMAGE / VIDEO */}
+      {project.video ? (
+        <div className="px-8 md:px-12">
+          <div className="w-full overflow-hidden rounded-sm bg-foreground/5">
+            <video
+              src={project.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full max-h-[80vh] object-cover"
+            />
+          </div>
+        </div>
+      ) : project.thumbnail ? (
         <div className="px-8 md:px-12">
           <div className="w-full overflow-hidden rounded-sm bg-foreground/5">
             <img
@@ -121,7 +134,7 @@ function ProjectPage() {
             />
           </div>
         </div>
-      )}
+      ) : null}
 
       <div className="border-t border-foreground/10 mt-20" />
 
