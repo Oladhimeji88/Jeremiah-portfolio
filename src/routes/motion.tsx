@@ -156,7 +156,7 @@ function MotionPage() {
           </div>
 
           {/* Iframe player */}
-          <div className="flex-1 flex items-center justify-center relative px-16 py-6 overflow-hidden">
+          <div className="flex-1 flex items-center justify-center relative px-14 py-3 overflow-hidden">
             <button
               type="button"
               onClick={prev}
@@ -173,7 +173,7 @@ function MotionPage() {
               title={videos[playerIdx].title}
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
-              className="w-full max-w-4xl aspect-video animate-fade-in border-0"
+              className="w-full max-w-none aspect-video max-h-full animate-fade-in border-0"
             />
 
             <button
